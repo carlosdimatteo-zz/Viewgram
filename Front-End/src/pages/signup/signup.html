@@ -1,35 +1,35 @@
 <ion-content padding>
-    <!-- <form [formGroup]="myForm" (ngSubmit)="signup()" class="form"> -->
+    <form [formGroup]="myForm" (ngSubmit)="signup()" class="form">
       <div text-center><img src="../assets/imgs/viewlogo2.png" alt="" class="imglogo"></div>
         
-        <ion-list>
-          <ion-item>
-              <ion-icon name="person" item-left></ion-icon>
-              <ion-label stacked>Name:</ion-label>
-              <ion-input  type="text" placeholder="Name" name="name" [(ngModel)]="json.name"></ion-input>
-            </ion-item>
-              <ion-item>
-                  <ion-icon name="mail" item-left></ion-icon>
-                  <ion-label stacked>Email:</ion-label>
-                  <ion-input  type="text" placeholder="Email" name="email" [(ngModel)]="json.email" ></ion-input>
-                </ion-item>
-          <ion-item>
-            <ion-icon name="contact" item-left></ion-icon>
-            <ion-label stac ked>Username:</ion-label>
-            <ion-input  type="text" placeholder="Username" name="username" [(ngModel)]="json.username"></ion-input>
+      <ion-list>
+        <ion-item>
+            <ion-icon name="person" item-left></ion-icon>
+            <ion-label stacked>Name:</ion-label>
+            <ion-input  type="text" placeholder="Name" formControlName="name"></ion-input>
           </ion-item>
-  
-          <ion-item>
-            <ion-icon name="key" item-left></ion-icon>
-            <ion-label stacked>Password:</ion-label>
-            <ion-input  type="password" placeholder="Password" name="password" [(ngModel)]="json.password"></ion-input>
-          </ion-item>
+            <ion-item>
+                <ion-icon name="mail" item-left></ion-icon>
+                <ion-label stacked>Email:</ion-label>
+                <ion-input  type="text" placeholder="Email" formControlName="email"></ion-input>
+              </ion-item>
+        <ion-item>
+          <ion-icon name="contact" item-left></ion-icon>
+          <ion-label stacked>Username:</ion-label>
+          <ion-input  type="text" placeholder="Username" formControlName="username"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="key" item-left></ion-icon>
+          <ion-label stacked>Password:</ion-label>
+          <ion-input  type="password" placeholder="Password" formControlName="password"></ion-input>
+        </ion-item>
 
           <div padding>
-              <button ion-button block type="button" (click)="signup()" color="dark" >Signup!</button>
-            </div>
+            <button ion-button block type="submit" color="dark" [disabled]="!myForm.valid">Signup!</button>
+          </div>
             <!-- removed all formgroup actions and declarations until helper is added -->
     
           </ion-list>
-        <!-- </form> -->
+        </form>
 </ion-content>

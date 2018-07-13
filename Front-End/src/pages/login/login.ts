@@ -5,23 +5,24 @@ import { FormBuilder , FormGroup , Validators } from '@angular/forms';
 import { SignupPage } from '../signup/signup';
 import {Storage} from '@ionic/storage'
 import { HomePage } from '../home/home';
+import { generateJson } from '../../helpers/generateJson';
 @IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  // loginForm: FormGroup;
+  loginForm: FormGroup;
       json:{username:string,password:string}
       resJson:{user_id:number}
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder,public httpService:HttpServicesProvider,private storage:Storage,public alertCtrl:AlertController) {
     this.json={username:"",password:""}
     this.resJson={user_id:0}
-    // this.loginForm = this.formBuilder.group({
-    //   username:['',Validators.required],
-    //   password: ['',Validators.required]
-    // });
+    this.loginForm = this.formBuilder.group({
+      username:['',Validators.required],
+      password: ['',Validators.required]
+    });
   }
 
   ionViewDidLoad() {
@@ -33,7 +34,11 @@ export class LoginPage {
   }
 
   loginUser(){
-    this.httpService.fetch(this.json,"POST","login.php")
+    console.log("Username:" + this.loginForm.value.username);
+    console.log("Password:" + this.loginForm.value.password);
+    let json = generateJson(this.loginForm, this.json);
+    
+    this.httpService.fetch(json,"POST","login.php")
     .subscribe((res) => {
       console.log(res);
       this.resJson=res;

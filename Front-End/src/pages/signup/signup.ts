@@ -5,23 +5,24 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,AlertController} from 'ionic-angular';
 import { FormBuilder , FormGroup, Validators } from '@angular/forms';
 import {Storage} from '@ionic/storage'
+import { generateJson } from '../../helpers/generateJson';
 @IonicPage()
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html',
 })
 export class SignupPage {
-  // myForm: FormGroup;
+  myForm: FormGroup;
     json:{name:string,username:string,email:string,password:string,bio:string}
     resJson:{user_id:number,res:string,status:number}
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public formBuilder: FormBuilder,private httpService:HttpServicesProvider,private storage:Storage,public alertCtrl:AlertController) {
-    // this.myForm = this.formBuilder.group({
-    //   name:['', Validators.required],
-    //   email:['', Validators.required],
-    //   username:['',Validators.required],
-    //   password: ['',Validators.required]
-    // });
+    this.myForm = this.formBuilder.group({
+      name:['', Validators.required],
+      email:['', Validators.required],
+      username:['',Validators.required],
+      password: ['',Validators.required]
+    });
     this.json={name:"",username:"",password:"",email:"",bio:""}
     this.resJson={user_id:0,res:"",status:0}
   }
@@ -32,7 +33,9 @@ export class SignupPage {
 
   signup(){
 
-    this.httpService.fetch(this.json,"POST","register.php")
+    let json = generateJson(this.myForm,this.json);
+
+    this.httpService.fetch(json,"POST","register.php")
     .subscribe((res) => {
       console.log(res);
       this.resJson=res;
