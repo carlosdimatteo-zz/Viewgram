@@ -1,3 +1,4 @@
+import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
@@ -7,12 +8,22 @@ import { LoginPage } from '../login/login';
   templateUrl: 'home.html'
 })
 export class HomePage {
-
-  constructor(public navCtrl: NavController) {
+    loggedIn:number
+  constructor(public navCtrl: NavController,private storage:Storage) {
 
   }
 
+  ionViewDidLoad(){
+    this.storage.get('user_id').then((data)=>{
+      if(data){
+        this.loggedIn=data
+      }else{
+        this.loggedIn=0
+      }
+    })
+  }
   goToLogin(){
+    this.storage.clear()
     this.navCtrl.setRoot(LoginPage);
   }
 

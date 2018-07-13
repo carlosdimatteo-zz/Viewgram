@@ -6,6 +6,8 @@
 
 <ion-content padding>
   <div text-center>
-    <a ion-button block clear (click)="goToLogin()" >Login</a>
+    <a *ngIf="!loggedIn" ion-button block clear (click)="goToLogin()" >Login</a>
+    <a *ngIf="loggedIn" ion-button block clear (click)="goToLogin()" >Logout</a>
+
   </div>
 </ion-content>

@@ -1,7 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
+
+import { HttpClient} from '@angular/common/http';
 
 /* mapping */
 import 'rxjs/add/operator/map';
@@ -14,7 +16,7 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class HttpServicesProvider {
-  svhost: string = 'http://localhost:80/hybridgram_sv/server/api';
+  svhost: string = 'http://localhost:8000/viewgram/api';
 
   constructor(private http: HttpClient) {
   }
