@@ -1,5 +1,5 @@
 <ion-content padding>
-    <form [formGroup]="myForm" (ngSubmit)="signup()" class="form">
+    <form [formGroup]="signUpForm" (ngSubmit)="signup()" class="form">
       <div text-center><img src="../assets/imgs/viewlogo2.png" alt="" class="imglogo"></div>
         
       <ion-list>
@@ -26,7 +26,7 @@
         </ion-item>
 
           <div padding>
-            <button ion-button block type="submit" color="dark" [disabled]="!myForm.valid">Signup!</button>
+            <button ion-button block type="submit" color="dark" [disabled]="!signUpForm.valid">Signup!</button>
           </div>
             <!-- removed all formgroup actions and declarations until helper is added -->
     

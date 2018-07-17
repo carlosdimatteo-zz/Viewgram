@@ -36,9 +36,10 @@ export class LoginPage {
   loginUser(){
     console.log("Username:" + this.loginForm.value.username);
     console.log("Password:" + this.loginForm.value.password);
-    let json = generateJson(this.loginForm, this.json);
+    this.json=this.loginForm.value
+    console.log("generated json: "+JSON.stringify(this.json))
     
-    this.httpService.fetch(json,"POST","login.php")
+    this.httpService.fetch(this.json,"POST","login.php")
     .subscribe((res) => {
       console.log(res);
       this.resJson=res;
@@ -58,11 +59,6 @@ export class LoginPage {
          }
       }
       console.log(this.resJson);
-    })
-
-
-
-    // console.log("Username:" + this.loginForm.value.username);
-    // console.log("Password:" + this.loginForm.value.password);
+    });
   }
 }

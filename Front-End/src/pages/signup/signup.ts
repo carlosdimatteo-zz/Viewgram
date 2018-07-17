@@ -12,12 +12,12 @@ import { generateJson } from '../../helpers/generateJson';
   templateUrl: 'signup.html',
 })
 export class SignupPage {
-  myForm: FormGroup;
+    signUpForm: FormGroup;
     json:{name:string,username:string,email:string,password:string,bio:string}
     resJson:{user_id:number,res:string,status:number}
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public formBuilder: FormBuilder,private httpService:HttpServicesProvider,private storage:Storage,public alertCtrl:AlertController) {
-    this.myForm = this.formBuilder.group({
+    this.signUpForm = this.formBuilder.group({
       name:['', Validators.required],
       email:['', Validators.required],
       username:['',Validators.required],
@@ -33,9 +33,11 @@ export class SignupPage {
 
   signup(){
 
-    let json = generateJson(this.myForm,this.json);
+    this.json=this.signUpForm.value
+    this.json.bio=""
+    console.log("generated json: "+JSON.stringify(this.json))
 
-    this.httpService.fetch(json,"POST","register.php")
+    this.httpService.fetch(this.json,"POST","register.php")
     .subscribe((res) => {
       console.log(res);
       this.resJson=res;
@@ -53,18 +55,7 @@ export class SignupPage {
          }
       
       console.log(this.resJson);
-    })
-
-
-
-
-
-
-    // console.log("Name:" + this.myForm.value.name);
-    // console.log("Email:" + this.myForm.value.email);
-    // console.log("Username:" + this.myForm.value.username);
-    // console.log("Password:" + this.myForm.value.password);
-    // this.navCtrl.setRoot(LoginPage);
+    });
   }
 
 }

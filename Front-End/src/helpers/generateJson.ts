@@ -3,5 +3,6 @@ export const generateJson = ( form,json) => {
         console.log("key to store: "+key);
         json[key]= form.value[key];
         return json;
-      });
+      })
+  
 }
