@@ -6,6 +6,7 @@ import { SignupPage } from '../signup/signup';
 import {Storage} from '@ionic/storage'
 import { HomePage } from '../home/home';
 import { generateJson } from '../../helpers/generateJson';
+import { TabsPage } from '../tabs/tabs';
 @IonicPage()
 @Component({
   selector: 'page-login',
@@ -48,7 +49,7 @@ export class LoginPage {
          this.storage.get("user_id").then((data)=>console.log(data));
          console.log(this.resJson.user_id);
          if(this.resJson.user_id!== undefined){
-       this.navCtrl.setRoot( HomePage );
+       this.navCtrl.setRoot( TabsPage );
          }else{
            let alert = this.alertCtrl.create({
              title:"Login unsuccesfull",

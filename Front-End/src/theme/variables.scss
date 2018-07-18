@@ -41,6 +41,9 @@ $colors: (
   dark:       #014631
 );
 
+$tab-button-md-active-color: color($colors, dark);
+$tab-button-md-inactive-color: color($colors, dark);
+
 
 // App iOS Variables
 // --------------------------------------------------
