@@ -32,7 +32,7 @@ export class EditProfilePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditProfilePage');
     this.json=this.navParams.get('json');
-    this.id=this.json.id_user
+    this.id=this.json.id_user;
     console.log("json del usuario: "+JSON.stringify(this.json));
   }
 
