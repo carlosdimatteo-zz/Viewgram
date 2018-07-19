@@ -1,71 +1,108 @@
 <ion-header>
 
-    <ion-navbar>
+  <ion-navbar>
+    <div text-center>
       <ion-title *ngIf="json">{{json.username}}</ion-title>
       <ion-title *ngIf="!json">Profile</ion-title>
-    </ion-navbar>
-  
-  </ion-header>
-  
-  
-  <ion-content padding>
-    <ion-grid *ngIf="json">
-      <ion-row>
-        <ion-col>
+    </div>
+    <ion-buttons right>
+      <button ion-button clear (click)="goToLogin()">
+        <ion-icon name="log-out" style="font-size: 25px;"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid *ngIf="json">
+    <ion-row>
+
+      <ion-col col-3>
+        <ion-avatar>
           <img src="json.avatar" class="ProfilePic">
-        </ion-col>
-        <ion-col>
-            <span><h3>{{json.name}}</h3></span> 
+        </ion-avatar>
+      </ion-col>
+
+      <ion-col col-9>
+        <ion-row text-center>
+          <ion-col col-4>
+            <span style="font-weight: bold">{{json.postscount}}</span>
+            <br>
+            Posts
           </ion-col>
 
+          <ion-col col-4>
+            <span style="font-weight: bold" (click)="followerPage(json.id_user)">{{json.followers_count}}</span>
+            <br>
+            Followers
+          </ion-col>
 
-       
-        <ion-col>
-            <span>Posts: {{json.postscount}}</span>
-            <span (click)="followerPage(json.id_user)">Followers: {{json.followers_count}}</span>
-            <span (click)="followingPage(json.id_user)">Following: {{json.following_count}}</span>
+          <ion-col col-4>
+            <span style="font-weight: bold" (click)="followingPage(json.id_user)">{{json.following_count}}</span>
+            <br>
+            Following
           </ion-col>
+
         </ion-row>
-        <ion-row> 
-          <ion-col>
-            
-            <span>Bio: {{json.biography}}</span>
-            <button ion-button (click)="goToEditProfile()">Edit Profile</button>
-          </ion-col>
-        </ion-row>
-        <hr/>
+        <br>
+
         <ion-row>
-            <ion-col>
-                <div padding>
-                    <ion-segment [(ngModel)]="Post">
-                      <ion-segment-button value="userPosts">
-                        Posts
-                      </ion-segment-button>
-                      <ion-segment-button value="likedPosts">
-                        Posts You've Liked
-                      </ion-segment-button>
-                    </ion-segment>
-                  </div>
-                  
-                  <div [ngSwitch]="Post">
-                    <ion-row *ngSwitchCase="'likedPosts'" >
-                      <ion-col *ngFor="let post of json.liked_posts">
-                          <img (click)="goToPost(post.post_id)" src="{{post.post_filename}}">
-                      </ion-col>
-                    </ion-row>
-                   
-                    <ion-row *ngSwitchCase="'userPosts'" >
-                        <ion-col *ngFor="let post of json.posts">
-                            <img (click)="goToPost(post.post_id)" src="{{post.post_filename}}">
-                        </ion-col>
-                      </ion-row>
-                  </div>
-            </ion-col>
+          <button ion-button outline color="dark" (click)="goToEditProfile()" style="width: 100%">Edit Profile</button>
         </ion-row>
-      <hr>
+
+      </ion-col>
+    
+    </ion-row>
+    <br>
+    
+    <span>
+      <h3>{{json.name}}</h3>
+    </span>
+    
+    <ion-row>
+     
+      <ion-col>
+        <span style="font-size: 15px;">{{json.biography}}</span>
+      </ion-col>
+    
+    </ion-row>
+    <hr/>
+    
+    <ion-row>
       
-  
-  
-    </ion-grid>
-  
-  </ion-content>
+      <ion-col>
+        <div padding>
+          <ion-segment [(ngModel)]="Post">
+            <ion-segment-button value="userPosts">
+              Posts
+            </ion-segment-button>
+            <ion-segment-button value="likedPosts">
+              Posts You've Liked
+            </ion-segment-button>
+          </ion-segment>
+        </div>
+
+        <div [ngSwitch]="Post">
+          <ion-row *ngSwitchCase="'likedPosts'">
+            <ion-col *ngFor="let post of json.liked_posts">
+              <img (click)="goToPost(post.post_id)" src="{{post.post_filename}}">
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngSwitchCase="'userPosts'">
+            <ion-col *ngFor="let post of json.posts">
+              <img (click)="goToPost(post.post_id)" src="{{post.post_filename}}">
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+    </ion-row>
+    <hr>
+
+
+
+  </ion-grid>
+
+</ion-content>

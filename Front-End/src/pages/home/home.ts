@@ -22,9 +22,5 @@ export class HomePage {
       }
     })
   }
-  goToLogin(){
-    this.storage.clear()
-    this.navCtrl.setRoot(LoginPage);
-  }
 
 }

@@ -4,6 +4,7 @@ import { PostPage } from '../post/post';
 import { HttpServicesProvider } from '../../providers/http-services/http-services';
 import { Storage } from '@ionic/storage';
 import { EditProfilePage } from '../edit-profile/edit-profile';
+import { LoginPage } from '../login/login';
 
 @IonicPage()
 @Component({
@@ -44,6 +45,10 @@ ionViewDidLoad() {
 
   goToEditProfile(){
     this.navCtrl.push(EditProfilePage,{json:this.json});
+  }
+  goToLogin(){
+    this.storage.clear()
+    this.navCtrl.setRoot(LoginPage);
   }
 
 fetchProfile() {

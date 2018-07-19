@@ -1,13 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the UploadPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-upload',
@@ -20,6 +13,10 @@ export class UploadPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UploadPage');
+  }
+
+  uploadPic(){
+    
   }
 
 }

@@ -38,8 +38,8 @@ export class EditProfilePage {
 
   editUser(){
     
-    this.json=this.editForm.value
-    this.json.id_user=this.id
+    this.json=this.editForm.value;
+    this.json.id_user=this.id;
     console.log("json to send to server"+JSON.stringify(this.json))
 
     this.httpService.fetch(this.json,"POST","updateUser.php")

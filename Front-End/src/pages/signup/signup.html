@@ -28,8 +28,10 @@
           <div padding>
             <button ion-button block type="submit" color="dark" [disabled]="!signUpForm.valid">Signup!</button>
           </div>
-            <!-- removed all formgroup actions and declarations until helper is added -->
     
           </ion-list>
         </form>
+        <div text-center>
+            <a ion-button block clear color="dark" (click)="goToLogin()" >Iniciar Sesion</a>
+          </div>
 </ion-content>

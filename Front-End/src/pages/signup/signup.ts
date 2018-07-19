@@ -30,6 +30,10 @@ export class SignupPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignupPage');
   }
+  goToLogin(){
+    this.navCtrl.setRoot(LoginPage);
+  }
+
 
   signup(){
 
