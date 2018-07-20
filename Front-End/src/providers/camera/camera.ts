@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpServicesProvider } from './../http-services/http-services';
 import { Injectable } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
@@ -7,9 +7,13 @@ import { ActionSheetController } from 'ionic-angular';
 @Injectable()
 export class CameraProvider {
   image: string = '';
+  svhost:'http://192.168.1.108:8000/viewgram'
+  path:string=""
+  updateForm
+  profileData=<any>{}
 
   constructor(
-    public http: HttpClient,
+    public httpService: HttpServicesProvider,
     private camera: Camera, 
     private actionSheet: ActionSheetController, 
     private transfer: FileTransfer,
@@ -55,15 +59,40 @@ export class CameraProvider {
     this.camera.getPicture(options).then((imageData) => {
       let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.image = base64Image;
+      console.log("giant image string : "+this.image)
     }, (err) => {
       alert(JSON.stringify(err))
     });
   }
 
-  uploadPic(){
-    
+  uploadPic(form:any,isPost:boolean,url:any){
+
+      const fileTransfer : FileTransferObject =this.transfer.create();
+      let options:FileUploadOptions={
+        fileKey:'file',
+        fileName:this.generateName(form.username,isPost),
+        chunkedMode:false,
+        mimeType:"image/jpeg",
+        headers:{},
+        params:{data:form}
+      }
+      //like sending  a formData
+      fileTransfer.upload(this.image,`${this.svhost}/api/uploadFile.php`,options).then((data)=>{
+        let path = (JSON.parse(data.response)).path
+        this.path=path
+        form.path=this.path
+        this.httpService.fetch(form,'POST',url).subscribe((res)=>{
+          console.log('response from http request with upload form'+JSON.stringify(res))
+        },(err=>console.log('err'+err)))
+
+      }).catch(err=>console.log('error in promise'+err))
   }
 
-  
+    generateName(username:string,isPost:boolean){
+        let randomString=[...Array(16)].map(i=>(~~(Math.random()*36)).toString(36)).join('');
+        return ((isPost) ? `${username}_post_${randomString}.jpg`:`${username}_avatar_${randomString}.jpg`)
+    }
+
+
 
 }

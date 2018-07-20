@@ -20,6 +20,7 @@ export class UploadPage {
   tagged: string = '';
   path: string = '';
   caption: string = '';
+  ht:string=""
   resJson:{user_id:number}
   constructor(
     public navCtrl: NavController, 
@@ -40,7 +41,8 @@ export class UploadPage {
     let json = {
       user_id: this.storage.get("user_id"),
       caption: this.caption,
-      tagged: this.tagged
+      tagged: ((this.tagged).split(',')),
+      ht:((this.ht).split(','))
     }
     this.option.uploadPic(json, true, 'upload.php');
   }
