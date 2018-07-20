@@ -1,0 +1,31 @@
+<ion-content padding class="content">
+  <div text-center><img src="../assets/imgs/viewlogo.png" alt="" class="imglogo"></div>
+    
+    
+  <form [formGroup]="loginForm" (ngSubmit)="loginUser()" class="form">
+      <img src="" alt="" class="imglogo">
+    <ion-list>
+      
+      <ion-item>
+        <ion-icon name="person" item-left></ion-icon>
+        <ion-label stacked>Username:</ion-label>
+        <ion-input  type="text" placeholder="Username"  name="username" formControlName="username" ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="key" item-left></ion-icon>
+        <ion-label stacked>Password:</ion-label>
+        <ion-input  type="password" placeholder="Password"  name="password" formControlName="password" ></ion-input>
+      </ion-item>
+      <div padding>
+        <button ion-button block type="submit" [disabled]= "!loginForm.valid"  color="secondary">Login</button>
+        <!-- deleted formgroup actions and bindings until helper function is created -->
+      </div>
+
+    </ion-list>
+  </form>
+
+  <div text-center>
+    <a ion-button block clear (click)="goToSignup()" >Nueva Cuenta</a>
+  </div>
+</ion-content>
