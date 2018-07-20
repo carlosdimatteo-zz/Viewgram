@@ -3,7 +3,7 @@
     // variables to work
     require_once("../requires/pgconnection.php");
     $file = $_FILES["file"];
-    $newpath = "C://xampp//htdocs//trippygram//avatars//";
+    $newpath = "C://xampp//htdocs//viewgram//files//";
     $newpath = $newpath . basename( $_FILES['file']['name']);
     $filetype = explode("/", $file["type"])[1]; // like split function in js
     $allowedtypes = ["jpeg", "jpg", "png", "mp4"];
@@ -21,7 +21,7 @@
         } else {
             echo json_encode([
               "status" => 400,
-              "msg" => "Erro while uploading image...."
+              "msg" => "Error while uploading image...."
             ]);
         }
     } else {

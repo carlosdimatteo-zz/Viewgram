@@ -6,6 +6,7 @@ import { ActionSheetController } from 'ionic-angular';
 
 @Injectable()
 export class CameraProvider {
+  image: string = '';
 
   constructor(
     public http: HttpClient,
@@ -51,6 +52,18 @@ export class CameraProvider {
       sourceType:sourceType
     }
 
+    this.camera.getPicture(options).then((imageData) => {
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
+      this.image = base64Image;
+    }, (err) => {
+      alert(JSON.stringify(err))
+    });
   }
+
+  uploadPic(){
+    
+  }
+
+  
 
 }

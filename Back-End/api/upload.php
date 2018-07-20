@@ -1,5 +1,6 @@
 <?php
     header('Access-Control-Allow-Origin: *');
+    header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept"); 
     // variables to work
     require_once("../requires/pgconnection.php");
     $file = $_FILES["file"];
