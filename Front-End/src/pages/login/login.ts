@@ -17,7 +17,13 @@ export class LoginPage {
       json:{username:string,password:string}
       resJson:{user_id:number}
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder,public httpService:HttpServicesProvider,private storage:Storage,public alertCtrl:AlertController) {
+  constructor(
+    public navCtrl: NavController,
+     public navParams: NavParams, 
+     public formBuilder: FormBuilder,
+     public httpService:HttpServicesProvider,
+     private storage:Storage,
+     public alertCtrl:AlertController) {
     this.json={username:"",password:""}
     this.resJson={user_id:0}
     this.loginForm = this.formBuilder.group({

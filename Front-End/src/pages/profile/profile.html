@@ -30,26 +30,25 @@
           <ion-col col-4>
             <span style="font-weight: bold">{{json.postscount}}</span>
             <br>
-            Posts
+            <span style="font-size: 10px">Posts</span>
           </ion-col>
 
           <ion-col col-4>
             <span style="font-weight: bold" (click)="followerPage(json.id_user)">{{json.followers_count}}</span>
             <br>
-            Followers
+            <span style="font-size: 10px">Followers</span>
           </ion-col>
 
           <ion-col col-4>
             <span style="font-weight: bold" (click)="followingPage(json.id_user)">{{json.following_count}}</span>
             <br>
-            Following
+            <span style="font-size: 10px">Following</span>
           </ion-col>
 
         </ion-row>
-        <br>
 
         <ion-row>
-          <button ion-button outline color="dark" (click)="goToEditProfile()" style="width: 100%">Edit Profile</button>
+          <button ion-button outline color="dark" (click)="goToEditProfile()" style="width: 100%; font-size: 15px">Edit Profile</button>
         </ion-row>
 
       </ion-col>
@@ -58,7 +57,7 @@
     <br>
     
     <span>
-      <h3>{{json.name}}</h3>
+      <h4>{{json.name}}</h4>
     </span>
     
     <ion-row>

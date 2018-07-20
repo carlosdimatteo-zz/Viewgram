@@ -7,6 +7,7 @@ import {IonicStorageModule} from '@ionic/storage'
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { SignupPage } from '../pages/signup/signup';
@@ -17,6 +18,7 @@ import { NotificationsPage } from '../pages/notifications/notifications';
 import { ProfilePage } from '../pages/profile/profile';
 import { HttpServicesProvider } from '../providers/http-services/http-services';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
+import { CameraProvider } from '../providers/camera/camera';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,8 @@ import { EditProfilePage } from '../pages/edit-profile/edit-profile';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    HttpServicesProvider
+    HttpServicesProvider,
+    CameraProvider
 
   ]
 })

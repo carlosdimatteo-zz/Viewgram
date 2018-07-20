@@ -1,7 +1,8 @@
 <?php
     // hashing => http://php.net/manual/es/function.password-hash.php
     // verify => http://php.net/manual/es/function.password-verify.php
-    header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept"); 
 
     require_once("../requires/pgconnection.php");
     
