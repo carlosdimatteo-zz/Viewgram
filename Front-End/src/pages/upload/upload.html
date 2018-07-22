@@ -1,0 +1,53 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title text-center>
+      <img src="../assets/imgs/viewgramlogo.png" alt="" style="width: 150px">
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div align="center" style="margin-top: 50px;">
+    <div (click)="chooseNewPhoto()">
+      <img src="../assets/imgs/photo.jpg" alt="" style="width: 80%">
+    </div>
+
+    <div id="uploadForm">
+
+      <ion-item>
+        <ion-label>
+          <ion-icon name="paper-plane" item-left></ion-icon>
+          Caption
+        </ion-label>
+        <ion-textarea type="text"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <ion-icon name="pricetags" item-left></ion-icon>
+          Tag People
+        </ion-label>
+        <ion-textarea type="text"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <ion-icon name="bookmark" item-left></ion-icon>
+          Hashtags
+        </ion-label>
+        <ion-textarea type="text"></ion-textarea>
+      </ion-item>
+      
+      <br>
+
+      <button ion-button type="button" (click)="uploadPic()" color="dark" >
+        Upload Picture
+      </button>
+    </div>
+
+  </div>
+</ion-content>
