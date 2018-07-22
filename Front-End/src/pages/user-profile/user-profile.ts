@@ -41,8 +41,9 @@ export class UserProfilePage {
     this.httpService.fetch(null,"GET","follow.php?followed_id="+this.navParams.get('id')+"&follower_id="+this.user_id)
     .subscribe((res) => {
       console.log(res);
-      this.json=res;
-      console.log(this.json);
+      let resjson=res;
+      console.log(resjson);
+      this.fetchProfile()
     })
   }
 
@@ -50,8 +51,9 @@ export class UserProfilePage {
     this.httpService.fetch(null,"GET","unfollow.php?followed_id="+this.navParams.get('id')+"&follower_id="+this.user_id)
     .subscribe((res) => {
       console.log(res);
-      this.json=res;
-      console.log(this.json);
+      let resjson=res;
+      console.log(resjson);
+      this.fetchProfile()
     })
   }
 

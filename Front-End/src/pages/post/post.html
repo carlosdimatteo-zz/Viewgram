@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-    <ion-card *ngIf="json">
+    <ion-card *ngIf="json.data">
 
         <ion-item (click)="goToProfile(json.data.id_user)">
           <ion-avatar item-start>

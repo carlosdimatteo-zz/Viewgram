@@ -19,9 +19,11 @@
                 echo json_encode($htid["hashtag_id"]);
                 $results = pg_query_params($connection, "SELECT * FROM post_1 p INNER JOIN post_hashtag h ON p.post_id = h.post_id WHERE h.hashtag_id = $1", array(intval($htid["hashtag_id"])));
             }
-            while ($r = pg_fetch_row($results)){
-                echo json_encode($r);
-            }
+            $results=pg_fetch_assoc($results);
+            json_encode([
+                "status"=>200,
+                "data"=>$results
+            ]);
         } else {
             json_encode([
                 "status" => 404,

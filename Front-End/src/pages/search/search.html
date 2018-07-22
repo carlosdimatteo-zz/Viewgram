@@ -14,6 +14,8 @@
 
 
 <ion-content padding>
+  <button ion-button *ngIf="!this.json.ht"(click)="toggleHt()" >search posts by hashtags</button>
+  <button ion-button *ngIf="this.json.ht"(click)="toggleHt()" >search Users</button>
     <ion-searchbar
   [(ngModel)]="myInput"
   type="text" 
@@ -22,5 +24,18 @@
   (ionInput)="onInput($event)"
   (ionCancel)="onCancel($event)">
 </ion-searchbar>
+<ion-list *ngIf="!json.ht&&users">
+  <span>users</span>
+  <button (click)="goToProfile(u.id_user)"  ion-item *ngFor="let u of users" padding>
+    <span id="username">@{{u.username}}</span>
+  </button>
+</ion-list>
+<ion-list *ngIf="json.ht&&posts">
+  <span>posts</span>
+  <button (click)="goToPost(u.post_id)" ion-item *ngFor="let u of posts" padding>
+    <span  id="pos-captiont">caption: {{u.post_caption}}</span>
+  </button>
+</ion-list>
+
 
 </ion-content>

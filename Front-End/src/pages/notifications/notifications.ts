@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { HttpServicesProvider } from '../../providers/http-services/http-services';
+import { Storage } from '@ionic/storage';
+import { PostPage } from '../post/post';
 
 /**
  * Generated class for the NotificationsPage page.
@@ -14,12 +17,37 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'notifications.html',
 })
 export class NotificationsPage {
+  posts=[]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public httpServices :HttpServicesProvider,private storage:Storage,public alertCtrl:AlertController) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NotificationsPage');
+  goToPost(id){
+    console.log(id);
+    this.navCtrl.push(PostPage,{id:id});
+  }
+
+  ionViewWillEnter() {
+    console.log('will enter  NotificationsPage');
+    this.posts=[];
+      this.storage.get("user_id").then((data)=>{
+
+        this.httpServices.fetch(null,"GET","mentions.php?userid="+data).subscribe((res)=>{
+          if(res.status==200){
+            this.posts=res.data
+            console.log("posts where you are tagged: "+JSON.stringify(this.posts))
+
+          }else{
+              let alert = this.alertCtrl.create({
+                title:"Could not load posts",
+                buttons:["OK"]
+              });
+              alert.present();
+          }
+        })
+
+      })
+    
   }
 
 }

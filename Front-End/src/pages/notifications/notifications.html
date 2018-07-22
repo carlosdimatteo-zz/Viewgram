@@ -7,12 +7,17 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>notifications</ion-title>
+    <ion-title>Notifications</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+    <ion-list>
+        <button (click)="goToPost(post.post_id)" ion-item clear
+                *ngFor="let post of posts">
+        You've been tagged in : {{post.post_caption}}
+        </button>
+      </ion-list>
 </ion-content>

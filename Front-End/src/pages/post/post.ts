@@ -18,8 +18,8 @@ import { UserProfilePage } from '../user-profile/user-profile';
 })
 export class PostPage {
     user_id:number;
-   commentJson={};
-    json:Object;
+   commentJson=<any>{}
+    json=<any>{};
     commentBox:Boolean=false;
   constructor(public navCtrl: NavController, public navParams: NavParams, public httpService :HttpServicesProvider,private storage:Storage) {
     
@@ -42,8 +42,9 @@ export class PostPage {
     this.httpService.fetch(null,"GET","report.php?user_id="+this.user_id+"&post_id="+this.navParams.get("id"))
     .subscribe((res) => {
       console.log(res);
-      this.json=res;
-      console.log(this.json);
+      let resjson=res
+      console.log(resjson);
+      this.fetchPost();
     });
   }
 
@@ -67,8 +68,11 @@ export class PostPage {
       this.httpService.fetch(this.commentJson,"POST","comment.php?user_id="+this.user_id+"&post_id="+this.navParams.get("id"))
       .subscribe((res) => {
         console.log(res);
-        this.json=res;
-        console.log(this.json);
+        let resjson=res;
+        console.log(resjson);
+        this.commentJson={}
+        this.commentBox=!this.commentBox
+        this.fetchPost();
       });
     }
 
@@ -77,8 +81,9 @@ export class PostPage {
       this.httpService.fetch(null,"GET","like.php?user_id="+this.user_id+"&post_id="+this.navParams.get("id"))
     .subscribe((res) => {
       console.log(res);
-      this.json=res;
-      console.log(this.json);
+     let resjson=res
+      console.log(resjson);
+      this.fetchPost();
     });
     }
 
@@ -86,8 +91,9 @@ export class PostPage {
       this.httpService.fetch(null,"GET","dislike.php?user_id="+this.user_id+"&post_id="+this.navParams.get("id"))
     .subscribe((res) => {
       console.log(res);
-      this.json=res;
-      console.log(this.json);
+      let resjson=res;
+      console.log(resjson);
+      this.fetchPost();
     });
     }
 

@@ -8,7 +8,7 @@
 
 <ion-content padding>
   <div>
-    <ion-card  *ngFor="let post of posts">
+    <ion-card (click)="goToPost(post.post_id)"  *ngFor="let post of posts">
 
       <ion-row>
 
@@ -22,7 +22,7 @@
 
       </ion-row>
 
-      <img src="{{post.post_filename}}" (click)="goToPost(post.post_id)" />
+      <img src="{{post.post_filename}}" />
       <ion-card-content>
         <p>
           {{post.post_caption}}
