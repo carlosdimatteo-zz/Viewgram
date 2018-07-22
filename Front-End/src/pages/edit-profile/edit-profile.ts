@@ -47,7 +47,7 @@ export class EditProfilePage {
       console.log(res);
       this.resJson=res;
 
-         if(this.resJson.status=200){
+         if(this.resJson.status==200){
           let alert = this.alertCtrl.create({
             title:"Succesfully updated user info",
             buttons:[{text:"OK",handler:()=>{

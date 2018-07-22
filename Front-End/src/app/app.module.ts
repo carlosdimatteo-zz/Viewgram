@@ -19,6 +19,8 @@ import { ProfilePage } from '../pages/profile/profile';
 import { HttpServicesProvider } from '../providers/http-services/http-services';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { CameraProvider } from '../providers/camera/camera';
+import { PostPage } from '../pages/post/post';
+import { UserProfilePage } from '../pages/user-profile/user-profile';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { CameraProvider } from '../providers/camera/camera';
     SearchPage,
     NotificationsPage,
     ProfilePage,
-    EditProfilePage
+    EditProfilePage,
+    PostPage,
+    UserProfilePage
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,9 @@ import { CameraProvider } from '../providers/camera/camera';
     SearchPage,
     NotificationsPage,
     ProfilePage,
-    EditProfilePage
+    EditProfilePage,
+    PostPage,
+    UserProfilePage
   ],
   providers: [
     StatusBar,

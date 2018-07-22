@@ -14,12 +14,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'search.html',
 })
 export class SearchPage {
-
+  search:string
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
+  onInput(event){
+    console.log(event.target.value)
+    this.search=event.target.value
+  }
+
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SearchPage');
+    console.log('ionVieeeeewDidLoad SearchPage');
   }
 
 }

@@ -50,7 +50,7 @@ export class LoginPage {
     .subscribe((res) => {
       console.log(res);
       this.resJson=res;
-      if(res.status=200){
+      if(res.status==200){
          this.storage.set('user_id',this.resJson.user_id);
          this.storage.get("user_id").then((data)=>console.log(data));
          console.log(this.resJson.user_id);

@@ -3,12 +3,15 @@
     // http://php.net/manual/es/function.pg-prepare.php
     function getQueries(){
     $queries = [
+        "register"=>[
+            "registerquery"=>"INSERT INTO app_user (name,username,password,email,biography)  SELECT $1,$2,$3,$4,$5 from app_user WHERE NOT EXISTS (SELECT username from app_user WHERE username=$2) RETURNING username"
+        ],
         "login" => [
             "loginquery" => "SELECT * FROM app_user WHERE username = $1",
         ],
         "homepage" => [
-            // "followerspost" => "SELECT * FROM post_1 a INNER JOIN followers_list b ON a.id_user = b.followed_id_user WHERE b.follower_id_user = $1",
-            "followerspost" =>"SELECT * FROM post_1 where $1",
+            "followerspost" => "SELECT * FROM post_1 a INNER JOIN followers_list b ON a.id_user = b.followed_id_user WHERE b.follower_id_user = $1",
+            // "followerspost" =>"SELECT * FROM post_1 where $1",
             "selecteduser" => "SELECT * FROM app_user WHERE id_user = $1"
         ],
         "profilepage" => [

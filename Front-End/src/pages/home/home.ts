@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { HttpServicesProvider } from '../../providers/http-services/http-services';
+import { PostPage } from '../post/post';
 
 @Component({
   selector: 'page-home',
@@ -19,6 +20,11 @@ export class HomePage {
     private storage:Storage,
     private httpServices: HttpServicesProvider) {
 
+  }
+
+  goToPost(id){
+    console.log(id);
+    this.navCtrl.push(PostPage,{id:id});
   }
 
   ionViewWillEnter(){

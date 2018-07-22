@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { PostPage } from '../post/post';
 import { HttpServicesProvider } from '../../providers/http-services/http-services';
 import { Storage } from '@ionic/storage';
@@ -18,7 +18,7 @@ export class ProfilePage {
   mypost = [];
   posts : '';
 
-constructor(public navCtrl: NavController, public navParams: NavParams,public httpService:HttpServicesProvider,private storage: Storage) {
+constructor(public navCtrl: NavController, public navParams: NavParams,public httpService:HttpServicesProvider,private storage: Storage,public app:App) {
 }
 
 ionViewDidLoad() {
@@ -50,7 +50,7 @@ ionViewDidLoad() {
   }
   goToLogin(){
     this.storage.clear()
-    this.navCtrl.setRoot(LoginPage);
+    this.app.getRootNav().setRoot(LoginPage);
   }
 
 fetchProfile() {

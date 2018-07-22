@@ -46,13 +46,13 @@ export class SignupPage {
       console.log(res);
       this.resJson=res;
 
-         console.log(this.resJson.user_id);
-         if(this.resJson.status=200){
+        //  console.log(this.resJson.user_id);
+         if(this.resJson.status==200){
        this.navCtrl.setRoot( LoginPage );
          }else{
            let alert = this.alertCtrl.create({
              title:"Sign Up unsuccesfull",
-             subTitle:"Check your credentials",
+             subTitle:this.resJson.res,
              buttons:["OK"]
            });
            alert.present();
