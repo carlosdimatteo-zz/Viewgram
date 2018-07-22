@@ -9,7 +9,7 @@
     $allowedtypes = ["jpeg", "png", "mp4"];
     // end of variables to work
 
-    $newpath = ((!file_exists("c://hybridgram_posts")) ? mkdir("c://hybridgram_posts") : "c://hybridgram_posts//" . $file["name"]);
+    $newpath = ((!file_exists("c://viewgram_posts")) ? mkdir("c://viewgram_posts") : "c://viewgram_posts//" . $file["name"]);
 
     $mydata = array($data["userid"], $newpath, $data["caption"], date('Y-m-d'), $data["lat"], $data["long"], 0);
 

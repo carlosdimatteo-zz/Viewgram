@@ -1,5 +1,6 @@
 <?php
     header('Access-Control-Allow-Origin: *');
+    header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept"); 
     // variables to work
     require_once("../requires/pgconnection.php");
     $file = $_FILES["file"];
@@ -9,9 +10,9 @@
     $allowedtypes = ["jpeg", "jpg", "png", "mp4"];
     // end of variables to work
   
-    $isallow = ((in_array($filetype, $allowedtypes)));
+    // $isallow = ((in_array($filetype, $allowedtypes)));
     
-    if($isallow){
+    if(true){
         if (move_uploaded_file($file['tmp_name'], $newpath)) {
             echo json_encode([
                 "status" => 200,

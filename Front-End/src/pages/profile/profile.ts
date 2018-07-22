@@ -15,6 +15,8 @@ export class ProfilePage {
 
   json:Object;
   user_id:string;
+  mypost = [];
+  posts : '';
 
 constructor(public navCtrl: NavController, public navParams: NavParams,public httpService:HttpServicesProvider,private storage: Storage) {
 }
@@ -28,7 +30,7 @@ ionViewDidLoad() {
 }
 
   goToPost(id){
-    console.log(id);
+    console.log("POST ID: "+id);
     this.navCtrl.push(PostPage,{id:id});
   }
 
@@ -54,10 +56,18 @@ ionViewDidLoad() {
 fetchProfile() {
   this.httpService.fetch(null,"GET","Profile.php?user_id="+this.user_id)
     .subscribe((res) => {
-      console.log(res);
+      console.log("Response: "+JSON.stringify(res));
       this.json=res.data;
-      console.log(this.json);
-    })
+      console.log("JSON:"+JSON.stringify(this.json));
+      if(res.status === 200) {
+        res.posts.map((p) => {
+          p.username = res.data.username;
+          this.mypost.push(p);
+        });
+      }
+      console.log("my post: "+JSON.stringify(this.mypost));
+    });
+    
 }
 
 

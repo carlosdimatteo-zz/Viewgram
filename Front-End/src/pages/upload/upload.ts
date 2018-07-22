@@ -4,6 +4,7 @@ import { CameraProvider } from '../../providers/camera/camera';
 import { Camera } from '@ionic-native/camera';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { Storage } from '@ionic/storage'
+import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
@@ -38,13 +39,18 @@ export class UploadPage {
   }
   
   uploadPic(){
-    let json = {
-      user_id: this.storage.get("user_id"),
-      caption: this.caption,
-      tagged: ((this.tagged).split(',')),
-      ht:((this.ht).split(','))
+    this.storage.get("user_id").then(id=>{
+      let json = {
+        userid: id,
+        username:id,
+        caption: this.caption,
+        tagged: ((this.tagged).split(',')),
+        ht:((this.ht).split(','))
+      }
+      this.option.uploadPic(json, true, 'upload.php');
+      this.navCtrl.setRoot(HomePage)
+    })
     }
-    this.option.uploadPic(json, true, 'upload.php');
-  }
+    
 
 }

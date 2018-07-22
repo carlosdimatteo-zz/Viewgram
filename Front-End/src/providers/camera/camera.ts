@@ -7,7 +7,8 @@ import { ActionSheetController } from 'ionic-angular';
 @Injectable()
 export class CameraProvider {
   image: string = '';
-  svhost:'http://192.168.1.108:8000/viewgram'
+  // svhost:'http://172.20.10.4:8080/viewgram';
+  svhost:'http://192.168.0.106:8080/viewgram';
   path:string=""
   updateForm
   profileData=<any>{}
@@ -68,7 +69,7 @@ export class CameraProvider {
   uploadPic(form:any,isPost:boolean,url:any){
 
       const fileTransfer : FileTransferObject =this.transfer.create();
-      let options:FileUploadOptions={
+      let option:FileUploadOptions={
         fileKey:'file',
         fileName:this.generateName(form.username,isPost),
         chunkedMode:false,
@@ -77,15 +78,16 @@ export class CameraProvider {
         params:{data:form}
       }
       //like sending  a formData
-      fileTransfer.upload(this.image,`${this.svhost}/api/uploadFile.php`,options).then((data)=>{
-        let path = (JSON.parse(data.response)).path
-        this.path=path
-        form.path=this.path
+      fileTransfer.upload(this.image,`http://192.168.0.106:8080/viewgram/api/uploadFile.php`,option).then((data)=>{
+        console.log(this.svhost);
+        let path = (JSON.parse(data.response)).path;
+        this.path=path;
+        form.path=this.path;
         this.httpService.fetch(form,'POST',url).subscribe((res)=>{
           console.log('response from http request with upload form'+JSON.stringify(res))
-        },(err=>console.log('err'+err)))
+        },(err=>console.log('err'+JSON.stringify(err))));
 
-      }).catch(err=>console.log('error in promise'+err))
+      }).catch(err=>console.log('error in promise'+JSON.stringify(err)))
   }
 
     generateName(username:string,isPost:boolean){
