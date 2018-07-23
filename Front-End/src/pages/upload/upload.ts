@@ -71,8 +71,8 @@ submitForm() {
   // console.log("id from storage:"+this.user_id);
   // });
 
-    // const loader = this.showLoader();
-    // console.log("loading loader"); loader.present();
+    const loader = this.showLoader();
+    console.log("loading loader"); loader.present();
     let json = {
       userid: this.user_id,
       caption: this.caption,
@@ -90,9 +90,11 @@ submitForm() {
           console.log("next upload.php?: "+JSON.stringify(json))
               
           this.mediaHandler.upload(json, true, 'upload.php');
-          // loader.dismiss();
-          // loader.onDidDismiss(() => 
-          this.navCtrl.setRoot(this.home);
+          console.log('Successful');
+          loader.dismiss();
+          loader.onDidDismiss(() => 
+          this.navCtrl.setRoot(this.home));
+          console.log('Perfect');
         })
     }
   }
@@ -107,13 +109,13 @@ submitForm() {
     });
   }
 
-  // showLoader() {
-  //   const loading = this.loading.create({
-  //     content: 'Uploading...',
-  //     spinner: 'dots'
-  //   });
-  //   return loading;  
-  // }
+  showLoader() {
+    const loading = this.loading.create({
+      content: 'Uploading...',
+      spinner: 'dots'
+    });
+    return loading;  
+  }
     
 
 }

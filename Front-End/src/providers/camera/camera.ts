@@ -53,8 +53,8 @@ export class CameraProvider {
   upload(form: any, isPost: boolean, url: any) {
     
     console.log("this should have an id : "+JSON.stringify(form));
-    // const loader = this.showLoader();
-    // console.log("loading loader"); loader.present();
+    const loader = this.showLoader();
+    console.log("loading loader"); loader.present();
     const fileTransfer: FileTransferObject = this.transfer.create();
     let options: FileUploadOptions = {
        fileKey: 'file',
@@ -69,28 +69,24 @@ export class CameraProvider {
        let path = (JSON.parse(data.response)).path;
        this.path = path;
        form.path = this.path;
-       console.log(JSON.stringify(form));
+       console.log('FORM'+JSON.stringify(form));
        console.log("next will call upload.php");
        this.httpService.fetch(form, 'POST', url)
         .subscribe(
           (res) => {
+            console.log('res'+JSON.stringify(res));
             console.log("requested to upload.php: "+JSON.stringify(form));
-            if(res.status==200){
-              console.log("everything ok with database :D")
-            }else{
-              console.log("there was an error inserting the post : "+res.msg)
-            }
           //alert('asdasdasdas'+JSON.stringify(res))
-            // loader.dismiss();
+            loader.dismiss();
           },
           (err) => {
-            // loader.dismiss();
-            alert('xdxd'+JSON.stringify(err))
+            loader.dismiss();
+            alert('Error fetching post'+JSON.stringify(err));
           });
     })
     .catch(err => {
-      // loader.dismiss();
-      alert('xdxd22'+JSON.stringify(err))
+      loader.dismiss();
+      alert('Error'+JSON.stringify(err));
     })
   }
 
@@ -126,11 +122,11 @@ export class CameraProvider {
     return ((isPost) ? `${user_id}_post_${randomNum}.jpg` : `${user_id}_avatar_${randomNum}.jpg`);
   }  
 
-  // showLoader() {
-  //   const loading = this.loading.create({
-  //     content: 'Updating...',
-  //     spinner: 'dots'
-  //   });
-  //   return loading;  
-  // }
+  showLoader() {
+    const loading = this.loading.create({
+      content: 'Updating...',
+      spinner: 'dots'
+    });
+    return loading;  
+  }
 }
