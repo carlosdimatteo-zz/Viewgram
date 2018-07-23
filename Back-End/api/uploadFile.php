@@ -4,15 +4,21 @@
     // variables to work
     require_once("../requires/pgconnection.php");
     $file = $_FILES["file"];
-    $newpath = "C://xampp//htdocs//viewgram//files//";
-    $newpath = $newpath . basename( $_FILES['file']['name']);
+    $pathavatar = "C://xampp//htdocs//viewgram//files//avatars//";
+    $pathposts = "C://xampp//htdocs//viewgram//files//posts//";
+    $newpath;
+    if(strpos(($_FILES['file']['name']), 'post') !== false) {
+        $newpath = $pathposts . basename( $_FILES['file']['name']);
+    } else {
+        $newpath = $pathavatar . basename( $_FILES['file']['name']);
+    }
     $filetype = explode("/", $file["type"])[1]; // like split function in js
     $allowedtypes = ["jpeg", "jpg", "png", "mp4"];
     // end of variables to work
   
-    // $isallow = ((in_array($filetype, $allowedtypes)));
+    $isallow = ((in_array($filetype, $allowedtypes)));
     
-    if(true){
+    if($isallow){
         if (move_uploaded_file($file['tmp_name'], $newpath)) {
             echo json_encode([
                 "status" => 200,

@@ -15,10 +15,18 @@ export class HomePage {
     msg: string = '';
     status: string = '';
     posts = [];
+    svhost: string ="http://192.168.0.106:8080/viewgram";
+    user_id:number;
   constructor(
     public navCtrl: NavController,
     private storage:Storage,
     private httpServices: HttpServicesProvider) {
+
+      this.svhost= "http://192.168.0.106:8080/viewgram";
+    this.storage.get("user_id").then((data)=>{
+      this.user_id=data;
+    console.log("id from storage:"+this.user_id);
+    });
 
   }
 

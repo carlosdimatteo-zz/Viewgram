@@ -17,8 +17,10 @@ export class ProfilePage {
   user_id:string;
   mypost = [];
   posts : '';
+  Post : string;
 
 constructor(public navCtrl: NavController, public navParams: NavParams,public httpService:HttpServicesProvider,private storage: Storage,public app:App) {
+  
 }
 
 ionViewDidLoad() {
@@ -27,6 +29,10 @@ ionViewDidLoad() {
     this.user_id=data;
   console.log(this.user_id);
   this.fetchProfile();});
+}
+
+ionViewWillEnter(){
+  this.Post ='userPosts';
 }
 
   goToPost(id){

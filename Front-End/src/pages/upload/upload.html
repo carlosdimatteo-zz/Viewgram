@@ -12,39 +12,48 @@
 <ion-content padding>
 
   <div align="center" style="margin-top: 50px;">
-    <div (click)="chooseNewPhoto()">
-      <img src="../assets/imgs/photo.jpg" alt="" style="width: 80%">
+    <div (click)="choosePicture()">
+      <img src="{{svhost}}" alt="" style="width: 80%">
     </div>
 
     <div id="uploadForm">
 
-      <ion-item>
+      <ion-item [(ngModel)]="caption" id="caption">
         <ion-label>
-          <ion-icon name="paper-plane" item-left></ion-icon>
+          <ion-icon name="paper-plane" item-left ></ion-icon>
           Caption
         </ion-label>
         <ion-textarea type="text"></ion-textarea>
       </ion-item>
 
-      <ion-item>
+      <ion-item [(ngModel)]="tagged" id="tagged">
         <ion-label>
-          <ion-icon name="pricetags" item-left></ion-icon>
+          <ion-icon name="pricetags" item-left ></ion-icon>
           Tag People
         </ion-label>
         <ion-textarea type="text"></ion-textarea>
       </ion-item>
 
-      <ion-item>
+      <ion-item [(ngModel)]="ht" id="ht">
         <ion-label>
-          <ion-icon name="bookmark" item-left></ion-icon>
+          <ion-icon name="bookmark" item-left ></ion-icon>
           Hashtags
         </ion-label>
         <ion-textarea type="text"></ion-textarea>
       </ion-item>
       
       <br>
+      <ion-item>
+          <ion-label>
+            Get Location
+            <ion-icon right name="bookmark"></ion-icon>
+          </ion-label>
+          <ion-checkbox checked="false" [(ngModel)]="checkedLocation"></ion-checkbox>
+      </ion-item> 
 
-      <button ion-button type="button" (click)="uploadPic()" color="dark" >
+      <br>
+
+      <button ion-button type="button" (click)="submitForm()" color="dark" >
         Upload Picture
       </button>
     </div>
