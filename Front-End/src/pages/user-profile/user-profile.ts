@@ -5,13 +5,6 @@ import { PostPage } from '../post/post';
 import { ProfilePage } from '../profile/profile';
 import { HttpServicesProvider } from '../../providers/http-services/http-services';
 
-/**
- * Generated class for the UserProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-user-profile',
@@ -20,7 +13,11 @@ import { HttpServicesProvider } from '../../providers/http-services/http-service
 export class UserProfilePage {
       json:Object;
       user_id:string;
+      Post: string;
+
   constructor(public httpService:HttpServicesProvider ,public navCtrl: NavController, public navParams: NavParams,private storage:Storage) {
+
+    this.Post = 'userPosts';
   }
 
   ionViewDidLoad() {

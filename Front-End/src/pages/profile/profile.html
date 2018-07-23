@@ -74,21 +74,98 @@
       <ion-col>
         <div no-padding>
           <div>
-            <ion-segment [(ngModel)]="posts">
+            <ion-segment [(ngModel)]="Post" color="dark">
               <ion-segment-button value="userPosts">
                 <ion-icon name="apps"></ion-icon>
               </ion-segment-button>
               <ion-segment-button value="userPostsList">
                 <ion-icon name="list"></ion-icon>
               </ion-segment-button>
+              <ion-segment-button value="likedPosts">
+                  <ion-icon name="heart"></ion-icon>
+                </ion-segment-button>
             </ion-segment>
           </div>
-          <div [ngSwitch]="posts">
+          <div [ngSwitch]="Post">
             <!-- <ion-row *ngSwitchCase="'likedPosts'">
             <ion-col *ngFor="let post of json.liked_posts">
               <img (click)="goToPost(post.post_id)" src="{{post.post_filename}}">
             </ion-col>
           </ion-row> -->
+          <ion-row *ngSwitchCase="'userPostsList'">
+              <ion-card *ngFor="let post of mypost">
+  
+                <ion-item>
+                  <ion-avatar item-start>
+                    <img src="">
+                  </ion-avatar>
+                  <h2>{{post.username}}</h2>
+                  <p>{{post.post_longitude}}-{{post.post_latitude}}</p>
+                </ion-item>
+  
+                <img src="{{post.post_filename}}">
+  
+                <ion-card-content>
+                  <p>{{post.post_caption}}</p>
+                </ion-card-content>
+                <ion-col right text-right>
+                  <ion-note>
+                    {{post.created_at}}
+                  </ion-note>
+                </ion-col>
+                <ion-row>
+  
+                  <ion-col>
+  
+                    <button *ngIf="!post.user_liked" ion-button icon-left clear small (click)="like()"  color="dark">
+                      <ion-icon name="heart" isActive="false"></ion-icon>
+                      <div>
+                        <p>{{post.likes}}</p>
+                      </div>
+                    </button>
+                    <button *ngIf="post.user_liked" ion-button icon-left clear small (click)="dislike()" color="dark">
+                      <ion-icon name="heart"></ion-icon>
+                      <div>
+                        <p>{{post.likes}}</p>
+                      </div>
+                    </button>
+                  </ion-col>
+                  <ion-col>
+                    <button ion-button icon-left clear small (click)="ToggleCommentBox()" color="dark">
+                      <ion-icon name="text"></ion-icon>
+                      <div>Comment</div>
+                    </button>
+                  </ion-col>
+                  <ion-col>
+                    <button ion-button icon-left clear small color="danger" (click)="report()">
+                      <ion-icon name="alert"></ion-icon>
+                      <div>Report</div>
+                    </button>
+                  </ion-col>
+  
+                </ion-row>
+                <ion-row>
+                  <ion-list *ngIf="commentBox">
+                    <ion-item *ngFor=" let comment of json.data.comments">
+                      <h2>{{comment.username}}</h2>
+                      <p>{{comment.comment_text}}</p>
+                    </ion-item>
+                    <form (ngSubmit)="comment()">
+                      <ion-item>
+  
+                        <ion-label>Comment</ion-label>
+                        <ion-textarea type="text" [(ngModel)]="commentJson.comment_text" name="comment_text"></ion-textarea>
+                      </ion-item>
+                      <button ion-button icon-left clear small type="sumbit">
+                        <ion-icon name="send"></ion-icon>
+                      </button>
+  
+                    </form>
+                  </ion-list>
+                </ion-row>
+              </ion-card>
+  
+            </ion-row>
 
             <ion-row *ngSwitchCase="'userPosts'">
               <ion-col *ngFor="let post of mypost">

@@ -7,13 +7,180 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>userProfile</ion-title>
+    <div text-center>
+      <ion-title *ngIf="json">{{json.data.username}}</ion-title>
+    </div>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
+
+  <ion-grid *ngIf="json">
+
+    <ion-row>
+
+      <ion-col col-3>
+        <ion-avatar>
+          <img src="{{json.data.avatar}}" alt="">
+        </ion-avatar>
+      </ion-col>
+
+      <ion-col col-9>
+        <ion-row text-center>
+
+          <ion-col col-4>
+            <span style="font-weight:bold">{{json.data.postscount}}</span>
+            <br>
+            <span style="font-size: 10px">Posts</span>
+          </ion-col>
+
+          <ion-col col-4>
+            <span style="font-weight: bold" (click)="followerPage(json.id_user)">{{json.data.followers}}</span>
+            <br>
+            <span style="font-size: 10px">Followers</span>
+          </ion-col>
+
+          <ion-col col-4>
+            <span style="font-weight: bold" (click)="followingPage(json.id_user)">{{json.data.following}}</span>
+            <br>
+            <span style="font-size: 10px">Following</span>
+          </ion-col>
+
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <button ion-button outline color="dark" *ngIf="user_id!=json.data.user_id&&!json.data.logged_following" (click)="follow()"
+              style="width: 100%">Follow</button>
+            <button ion-button outline color="dark" *ngIf="user_id!=json.data.user_id&&json.data.logged_following" (click)="unfollow()"
+              style="width: 100%">Unfollow</button>
+          </ion-col>
+
+        </ion-row>
+
+      </ion-col>
+
+    </ion-row>
+    <br>
+
+    <span>
+      <h4>{{json.data.name}}</h4>
+    </span>
+
+    <ion-row>
+      <ion-col>
+        <span style="font-size: 15px;">{{json.data.biography}}</span>
+      </ion-col>
+    </ion-row>
+    <hr/>
+
+    <ion-col>
+      <div no-padding>
+
+        <div>
+          <ion-segment [(ngModel)]="Post" color="dark">
+            <ion-segment-button value="userPosts">
+              <ion-icon name="apps"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="userPostsList">
+              <ion-icon name="list"></ion-icon>
+            </ion-segment-button>
+          </ion-segment>
+        </div>
+
+        <div [ngSwitch]="Post">
+          <ion-row *ngSwitchCase="'userPosts'">
+            <ion-col *ngFor="let post of json.posts">
+              <img (click)="goToPost(post.post_id)" src="{{post.post_filename}}">
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngSwitchCase="'userPostsList'">
+            <ion-card *ngFor="let post of json.posts">
+
+              <ion-item>
+                <ion-avatar item-start>
+                  <img src="{{json.data.avatar}}">
+                </ion-avatar>
+                <h2>{{json.data.username}}</h2>
+                <p>{{json.data.post_longitude}}-{{json.data.post_latitude}}</p>
+              </ion-item>
+
+              <img src="{{json.data.post_filename}}">
+
+              <ion-card-content>
+                <p>{{json.data.post_caption}}</p>
+              </ion-card-content>
+              <ion-col right text-right>
+                <ion-note>
+                  {{json.data.created_at}}
+                </ion-note>
+              </ion-col>
+              <ion-row>
+
+                <ion-col>
+
+                  <button *ngIf="!json.data.user_liked" ion-button icon-left clear small (click)="like()" color="dark">
+                    <ion-icon name="heart" isActive="false"></ion-icon>
+                    <div>
+                      <p>{{json.data.likes}}</p>
+                    </div>
+                  </button>
+                  <button *ngIf="json.data.user_liked" ion-button icon-left clear small (click)="dislike()" color="dark">
+                    <ion-icon name="heart"></ion-icon>
+                    <div>
+                      <p>{{json.data.likes}}</p>
+                    </div>
+                  </button>
+                </ion-col>
+                <ion-col>
+                  <button ion-button icon-left clear small (click)="ToggleCommentBox()" color="dark">
+                    <ion-icon name="text"></ion-icon>
+                    <div>Comment</div>
+                  </button>
+                </ion-col>
+                <ion-col>
+                  <button ion-button icon-left clear small color="danger" (click)="report()">
+                    <ion-icon name="alert"></ion-icon>
+                    <div>Report</div>
+                  </button>
+                </ion-col>
+
+              </ion-row>
+              <ion-row>
+                <ion-list *ngIf="commentBox">
+                  <ion-item *ngFor=" let comment of json.data.comments">
+                    <h2>{{comment.username}}</h2>
+                    <p>{{comment.comment_text}}</p>
+                  </ion-item>
+                  <form (ngSubmit)="comment()">
+                    <ion-item>
+
+                      <ion-label>Comment</ion-label>
+                      <ion-textarea type="text" [(ngModel)]="commentJson.comment_text" name="comment_text"></ion-textarea>
+                    </ion-item>
+                    <button ion-button icon-left clear small type="sumbit">
+                      <ion-icon name="send"></ion-icon>
+                    </button>
+
+                  </form>
+                </ion-list>
+              </ion-row>
+            </ion-card>
+
+          </ion-row>
+        </div>
+      </div>
+    </ion-col>
+
+  </ion-grid>
+
+
+</ion-content>
+
+
+<!-- <ion-content padding>
     <ion-grid *ngIf="json">
         <ion-row>
           <ion-col>
@@ -67,4 +234,4 @@
     
     
       </ion-grid>
-</ion-content>
+</ion-content> -->

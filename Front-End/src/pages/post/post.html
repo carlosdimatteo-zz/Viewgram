@@ -1,16 +1,10 @@
-<!--
-  Generated template for the PostPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>post</ion-title>
-  </ion-navbar>
-
-</ion-header>
+    <ion-navbar>
+      <ion-title text-center>
+        <img src="../assets/imgs/viewgramlogo.png" alt="" style="width: 150px">
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
 
 
 <ion-content padding>
@@ -38,17 +32,17 @@
             
           <ion-col>
             
-            <button *ngIf="!json.data.user_liked" ion-button icon-left clear small (click)="like()" >
+            <button *ngIf="!json.data.user_liked" ion-button icon-left clear small (click)="like()" color="dark" >
               <ion-icon name="heart" isActive="false"></ion-icon>
               <div> <p>{{json.data.likes}}</p></div>
             </button>
-            <button *ngIf="json.data.user_liked" ion-button icon-left clear small (click)="dislike()" >
+            <button *ngIf="json.data.user_liked" ion-button icon-left clear small (click)="dislike()" color="dark" >
                 <ion-icon name="heart"></ion-icon>
                 <div> <p>{{json.data.likes}}</p></div>
               </button>
           </ion-col>
           <ion-col>
-            <button ion-button icon-left clear small (click)="ToggleCommentBox()" >
+            <button ion-button icon-left clear small (click)="ToggleCommentBox()" color="dark" >
               <ion-icon name="text"></ion-icon>
               <div>Comment</div>
             </button>
