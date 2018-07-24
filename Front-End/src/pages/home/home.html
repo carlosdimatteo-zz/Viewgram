@@ -8,7 +8,7 @@
 
 <ion-content padding>
   <div>
-    <ion-card (click)="goToPost(post.post_id)"  *ngFor="let post of posts">
+    <ion-card (click)="goToPost(p.post_id)"  *ngFor="let p of posts">
 
       <ion-row>
 
@@ -17,15 +17,15 @@
         </ion-avatar>
 
         <ion-card-title style="font-weight: bold; font-size: 15px; margin:10px;">
-          {{post.username}}
+          {{p.username}}
         </ion-card-title>
 
       </ion-row>
 
-      <img src="{{post.post_filename}}" />
+      <img src="http://192.168.0.105:8080//viewgram//{{p.post_filename}}" />
       <ion-card-content>
         <p>
-          {{post.post_caption}}
+          {{p.post_caption}}
         </p>
       </ion-card-content>
       

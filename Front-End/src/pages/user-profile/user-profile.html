@@ -91,8 +91,8 @@
 
         <div [ngSwitch]="Post">
           <ion-row *ngSwitchCase="'userPosts'">
-            <ion-col *ngFor="let post of json.posts">
-              <img (click)="goToPost(post.post_id)" src="{{post.post_filename}}">
+            <ion-col col-4 *ngFor="let post of json.posts" style="height: 80px; overflow: hidden;">
+              <img (click)="goToPost(post.post_id)" src="http://192.168.0.105:8080//viewgram//{{post.post_filename}}">
             </ion-col>
           </ion-row>
 
@@ -107,14 +107,14 @@
                 <p>{{json.data.post_longitude}}-{{json.data.post_latitude}}</p>
               </ion-item>
 
-              <img src="{{json.data.post_filename}}">
+              <img src="http://192.168.0.105:8080//viewgram//{{post.post_filename}}">
 
               <ion-card-content>
-                <p>{{json.data.post_caption}}</p>
+                <p>{{post.post_caption}}</p>
               </ion-card-content>
               <ion-col right text-right>
                 <ion-note>
-                  {{json.data.created_at}}
+                  {{post.created_at}}
                 </ion-note>
               </ion-col>
               <ion-row>
@@ -124,13 +124,13 @@
                   <button *ngIf="!json.data.user_liked" ion-button icon-left clear small (click)="like()" color="dark">
                     <ion-icon name="heart" isActive="false"></ion-icon>
                     <div>
-                      <p>{{json.data.likes}}</p>
+                      <p>{{post.likes}}</p>
                     </div>
                   </button>
                   <button *ngIf="json.data.user_liked" ion-button icon-left clear small (click)="dislike()" color="dark">
                     <ion-icon name="heart"></ion-icon>
                     <div>
-                      <p>{{json.data.likes}}</p>
+                      <p>{{post.likes}}</p>
                     </div>
                   </button>
                 </ion-col>

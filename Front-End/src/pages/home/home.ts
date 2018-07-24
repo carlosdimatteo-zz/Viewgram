@@ -10,23 +10,25 @@ import { PostPage } from '../post/post';
   templateUrl: 'home.html'
 })
 export class HomePage {
-    loggedIn:number;
-    img: string = '';
-    msg: string = '';
-    status: string = '';
+    // loggedIn:number;
+    // img: string = '';
+    // msg: string = '';
+    // status: string = '';
     posts = [];
-    svhost: string ="http://192.168.0.106:8080/viewgram";
+    posts_arr = [];
+    svhost: string ="http://192.168.0.105:8080/viewgram";
     user_id:number;
+    loaded: boolean = false;
   constructor(
     public navCtrl: NavController,
     private storage:Storage,
     private httpServices: HttpServicesProvider) {
-
-      this.svhost= "http://192.168.0.106:8080/viewgram";
-    this.storage.get("user_id").then((data)=>{
-      this.user_id=data;
-    console.log("id from storage:"+this.user_id);
+      this.svhost= "http://192.168.0.105:8080/viewgram";
+      this.storage.get("user_id").then((data)=>{
+        this.user_id=data;
+        console.log("id from storage:"+this.user_id);
     });
+    this.posts = [];
 
   }
 
@@ -36,26 +38,42 @@ export class HomePage {
   }
 
   ionViewWillEnter(){
-    this.storage.get('user_id').then((data)=>{
-      if(data){
-        this.loggedIn=data;
-        console.log("data from storage"+this.loggedIn)
-        this.posts = [];
-        console.log("is this still running?")
-    this.httpServices.fetch(null, 'GET', 'home.php?id='+this.loggedIn)
-      .subscribe(res => {
-        console.log("data from response in home: "+JSON.stringify(res.data));
-        res['data'].forEach(element => {
-          this.posts.push(element);
-          // this.getFiles()
-        });
-        console.log("this is the json array of posts: "+JSON.stringify(this.posts));
-      })
-      }else{
-        this.loggedIn=0;
+    this.loaded = false;
+    this.posts=[];
+    this.showPosts();
+      //   this.httpServices.fetch(null, 'GET', 'home.php?id='+this.user_id)
+      // .subscribe(res => {
+      //   console.log("data from response in home: "+JSON.stringify(res.data));
+      //   res['data'].forEach(element => {
+      //     this.posts.push(element);
+      //     // this.getFiles()
+      //   });
+      //   console.log("this is the json array of posts: "+JSON.stringify(this.posts));
+      // })
+     
+  }
+
+  showPosts(){
+    this.httpServices.userDashboard(`home.php?id=${this.user_id}`).subscribe(
+      
+      (res)=> {
+        console.log('es este'+JSON.stringify(this.user_id));
+        if(res.status === 200){
+          res.data.map(p => this.posts.push(p));
+          this.loaded = true;
+          console.log('posts'+JSON.stringify(this.posts));
+        }else{
+          alert('Error finding posts');
+        }
       }
-    })
-    
+    );
+  }
+
+  spinnerStyle() {
+    let style = {
+      'display': this.loaded ? 'none' : 'block'
+    }
+    return style;
   }
 
   // getFiles(){

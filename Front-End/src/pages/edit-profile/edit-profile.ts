@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams,AlertController } from 'ionic-angul
 import { FormBuilder , FormGroup, Validators } from '@angular/forms';
 import { HttpServicesProvider } from '../../providers/http-services/http-services';
 import { ProfilePage } from '../profile/profile';
+import { CameraProvider } from '../../providers/camera/camera';
+import { Camera } from '@ionic-native/camera';
 
 @IonicPage()
 @Component({
@@ -14,12 +16,15 @@ export class EditProfilePage {
   id:number
   json:{name:string,username:string,email:string,password:string,bio:string, id_user:number}
   resJson:{user_id:string,status:number}
+  avatarImage: string = '';
+  updateForm;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     private httpService:HttpServicesProvider,
-    public alertCtrl : AlertController) {
+    public alertCtrl : AlertController,
+    private mediaHandler: CameraProvider) {
       this.editForm = this.formBuilder.group({
         name:['', Validators.required],
         email:['', Validators.required],
@@ -27,21 +32,26 @@ export class EditProfilePage {
         biography:['',Validators.required]
         // password: ['',Validators.required]
       });
+      this.json=this.navParams.get('json');
+    this.id=this.json.id_user;
+    console.log("json del usuario: "+JSON.stringify(this.json));
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditProfilePage');
-    this.json=this.navParams.get('json');
-    this.id=this.json.id_user;
-    console.log("json del usuario: "+JSON.stringify(this.json));
+    
   }
 
   editUser(){
     
     this.json=this.editForm.value;
     this.json.id_user=this.id;
-    console.log("json to send to server"+JSON.stringify(this.json))
+    console.log("json to send to server"+JSON.stringify(this.json));
 
+
+    if((this.mediaHandler.getBase64()).length ===0){
+      this.updateForm.value['haveAvatar'] = false;
+    
     this.httpService.fetch(this.json,"POST","updateUser.php")
     .subscribe((res) => {
       console.log(res);
@@ -65,7 +75,15 @@ export class EditProfilePage {
       
       console.log(this.resJson);
     });
+  }else{
+    this.updateForm.value['haveAvatar'] = true;
+    this.mediaHandler.upload(this.updateForm.value,false,'updateUser.php');
+  }
 
+  }
+
+  changePhoto(){
+    this.mediaHandler.choose();
   }
 
 
