@@ -41,7 +41,8 @@ export class UploadPage {
     private mediaHandler: CameraProvider,
     private storage:Storage,
     private loading: LoadingController,
-    private geolocation: Geolocation
+    private geolocation: Geolocation,
+    private httpService : HttpServicesProvider
   ) {
     this.svhost= "http://192.168.1.121:8080/viewgram";
     this.storage.get("user_id").then((data)=>{
@@ -82,19 +83,23 @@ submitForm() {
     if(this.checkedLocation) {
       this.getLocation()
         .then((pos: any) => {
-          json['lat'] = pos.latitude;
-          json['long'] = pos.longitude;
-          // alert(this.checkedLocation);
-          // alert(JSON.stringify(json));
-          // json["user_id"]=this.user_id 
-          console.log("next upload.php?: "+JSON.stringify(json))
-              
-          this.mediaHandler.upload(json, true, 'upload.php');
-          console.log('Successful');
-          loader.dismiss();
-          loader.onDidDismiss(() => 
-          this.navCtrl.setRoot(this.home));
-          console.log('Perfect');
+          this.httpService.getLocation(`http://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.latitude},${pos.longitude}&sensor=false?key=AIzaSyCuP2So9c8btOOcewqGchIC2iFE2JYxBDs`).subscribe(({results:{formatted_address: location}})=>{
+            json['lat'] = pos.latitude;
+            json['long'] = pos.longitude;
+            json["location"]= location
+            // alert(this.checkedLocation);
+            // alert(JSON.stringify(json));
+            // json["user_id"]=this.user_id 
+            console.log("next upload.php?: "+JSON.stringify(json))
+                
+            this.mediaHandler.upload(json, true, 'upload.php');
+            console.log('Successful');
+            loader.dismiss();
+            loader.onDidDismiss(() => 
+            this.navCtrl.setRoot(this.home));
+            console.log('Perfect');
+          })
+          
         })
     }
   }

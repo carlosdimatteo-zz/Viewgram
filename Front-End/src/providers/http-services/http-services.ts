@@ -53,4 +53,8 @@ export class HttpServicesProvider {
       .map((res: any) => res);
   }
 
+  getLocation(url){
+      return this.http.get(url).map((res:any)=>res);
+  }
+
 }

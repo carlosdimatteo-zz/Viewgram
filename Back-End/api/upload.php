@@ -10,7 +10,7 @@
     // end of variables to work
     
 //    $mydata = array($data["userid"], $newpath, $data["caption"], date('Y-m-d'), $data["lat"], $data["long"], 0);
-        $mydata = array($data["userid"], $newpath, $data["caption"], date('Y-m-d'), 10, 10, 0);
+        $mydata = array($data["userid"], $newpath, $data["caption"], date('Y-m-d'), $data["lat"], $data["long"],$data["location"], 0);
 
     //echo json_encode($mydata);
 
@@ -18,7 +18,7 @@
     if(!($data["path"] === '')) {
             try {
                 if($connection) {
-                    $results = pg_query_params($connection, "INSERT INTO post_1 (id_user, post_filename, post_caption, created_at, post_latitude, post_longitude, report_count ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING post_id", $mydata);
+                    $results = pg_query_params($connection, "INSERT INTO post_1 (id_user, post_filename, post_caption, created_at, post_latitude, post_longitude,location,report_count ) VALUES ($1, $2, $3, $4, $5, $6, $7,$8) RETURNING post_id", $mydata);
                     $r = pg_fetch_assoc($results);
                     $t;
                     if($r){ 

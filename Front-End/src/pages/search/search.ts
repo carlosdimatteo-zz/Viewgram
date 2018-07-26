@@ -18,11 +18,11 @@ import { PostPage } from '../post/post';
   templateUrl: 'search.html',
 })
 export class SearchPage {
-  json:{key:string,ht:boolean}
+  json:{key:string,ht:boolean,user:boolean}
   users=[]
   posts=[]
   constructor(public navCtrl: NavController, public navParams: NavParams,public httpService:HttpServicesProvider) {
-    this.json={key:"",ht:false};
+    this.json={key:"",ht:false,user:true};
     this.json.ht=false
   }
 
@@ -39,10 +39,13 @@ export class SearchPage {
       if(this.json.ht){
         this.posts=res.data
         console.log("posts : "+JSON.stringify(this.posts))
-      }else{
+      }else if(this.json.user){
       console.log(res)
       this.users=res.data
       console.log("users:"+JSON.stringify(this.users))
+      }else{
+        this.posts=res.data
+        console.log("posts : "+JSON.stringify(this.posts))
       }
     })
   }
@@ -53,14 +56,23 @@ export class SearchPage {
   }
 
   toggleHt(){
-    this.json.ht=!this.json.ht
+    this.json.ht=true
     console.log("search ht? :"+this.json.ht)
+  }
+  toggleUser(){
+    this.json.user=true
+    console.log("search user?: "+this.json.user)
+  }
+  toggleLocation(){
+    this.json.user=false
+    this.json.ht=false
+    console.log("search posts by location")
   }
 
 
   ionViewDidLoad() {
     console.log('ionVieeeeewDidLoad SearchPage')
-    this.json={key:"",ht:false};
+    this.json={key:"",ht:false,user:true};
   }
 
 }
