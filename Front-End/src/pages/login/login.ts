@@ -52,7 +52,7 @@ export class LoginPage {
       this.resJson=res;
       if(res.status==200){
          this.storage.set('user_id',this.resJson.user_id);
-         this.storage.get("user_id").then((data)=>console.log(data));
+         this.storage.get("user_id").then((data)=>{console.log(data);
          console.log(this.resJson.user_id);
          if(this.resJson.user_id!== undefined){
        this.navCtrl.setRoot( TabsPage );
@@ -63,7 +63,7 @@ export class LoginPage {
              buttons:["OK"]
            });
            alert.present();
-         }
+         }})
       }
       console.log(this.resJson);
     });

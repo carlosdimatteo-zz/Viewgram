@@ -16,18 +16,15 @@ export class HomePage {
     // status: string = '';
     posts = [];
     posts_arr = [];
-    svhost: string ="http://192.168.0.105:8080/viewgram";
+    svhost: string ="http://192.168.1.121:8080/viewgram";
     user_id:number;
     loaded: boolean = false;
   constructor(
     public navCtrl: NavController,
     private storage:Storage,
     private httpServices: HttpServicesProvider) {
-      this.svhost= "http://192.168.0.105:8080/viewgram";
-      this.storage.get("user_id").then((data)=>{
-        this.user_id=data;
-        console.log("id from storage:"+this.user_id);
-    });
+      this.svhost= "http://192.168.1.121:8080/viewgram";
+      
     this.posts = [];
 
   }
@@ -40,34 +37,39 @@ export class HomePage {
   ionViewWillEnter(){
     this.loaded = false;
     this.posts=[];
-    this.showPosts();
-      //   this.httpServices.fetch(null, 'GET', 'home.php?id='+this.user_id)
-      // .subscribe(res => {
-      //   console.log("data from response in home: "+JSON.stringify(res.data));
-      //   res['data'].forEach(element => {
-      //     this.posts.push(element);
-      //     // this.getFiles()
-      //   });
-      //   console.log("this is the json array of posts: "+JSON.stringify(this.posts));
-      // })
+    // this.showPosts();
+    this.storage.get("user_id").then((data)=>{
+      this.user_id=data;
+      console.log("id from storage:"+this.user_id);
+      this.httpServices.fetch(null, 'GET', 'home.php?id='+this.user_id)
+      .subscribe(res => {
+        console.log("data from response in home: "+JSON.stringify(res.data));
+        res['data'].forEach(element => {
+          this.posts.push(element);
+          // this.getFiles()
+        });
+        console.log("this is the json array of posts: "+JSON.stringify(this.posts));
+      })
+  });
+       
      
   }
 
-  showPosts(){
-    this.httpServices.userDashboard(`home.php?id=${this.user_id}`).subscribe(
+  // showPosts(){
+  //   this.httpServices.userDashboard(`home.php?id=${this.user_id}`).subscribe(
       
-      (res)=> {
-        console.log('es este'+JSON.stringify(this.user_id));
-        if(res.status === 200){
-          res.data.map(p => this.posts.push(p));
-          this.loaded = true;
-          console.log('posts'+JSON.stringify(this.posts));
-        }else{
-          alert('Error finding posts');
-        }
-      }
-    );
-  }
+  //     (res)=> {
+  //       console.log('es este'+JSON.stringify(this.user_id));
+  //       if(res.status === 200){
+  //         res.data.map(p => this.posts.push(p));
+  //         this.loaded = true;
+  //         console.log('posts'+JSON.stringify(this.posts));
+  //       }else{
+  //         alert('Error finding posts');
+  //       }
+  //     }
+  //   );
+  // }
 
   spinnerStyle() {
     let style = {
