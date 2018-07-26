@@ -10,7 +10,7 @@
             "loginquery" => "SELECT * FROM app_user WHERE username = $1",
         ],
         "homepage" => [
-            "followerspost" => "SELECT * FROM post_1 a INNER JOIN followers_list b ON a.id_user = b.followed_id_user WHERE b.follower_id_user = $1",
+            "followerspost" => "SELECT c.username,a.* FROM ((post_1 a INNER JOIN followers_list b ON a.id_user = b.followed_id_user )INNER JOIN app_user c ON a.id_user = c.id_user ) WHERE b.follower_id_user = $1 OR a.id_user = $1 ORDER BY a.created_at DESC",
             // "followerspost" =>"SELECT * FROM post_1 where $1",
             "selecteduser" => "SELECT * FROM app_user WHERE id_user = $1"
         ],
@@ -27,7 +27,8 @@
         "searchpage" => [
             "user" => "SELECT * FROM app_user WHERE username = $1",
             "tag_id"=> "SELECT hashtag_id FROM hashtag WHERE hashtag = $1",
-            "tag" => "SELECT p.post_id,p.post_caption,p.id_user,p.created_at FROM post_1 p INNER JOIN post_hashtag h ON p.post_id = h.post_id WHERE h.hashtag_id = $1 ORDER BY p.created_at DESC",
+            "tag" => "SELECT a.username , p.post_id,p.post_caption,p.id_user,p.created_at FROM ((post_1 p INNER JOIN post_hashtag h ON p.post_id = h.post_id) INNER JOIN app_user a ON p.id_user=a.id_user) WHERE h.hashtag_id = $1 ORDER BY p.created_at DESC",
+            "location"=>"SELECT a.username , p.post_id,p.post_caption,p.id_user,p.created_at,p.location FROM post_1 p WHERE p.location = $1 ORDER BY p.created_at DESC "
         ],
         "postpage" => [
             "data"=>"SELECT a.avatar,a.username,p.* FROM post_1 p INNER JOIN app_user a ON p.id_user = a.id_user WHERE post_id = $1",
