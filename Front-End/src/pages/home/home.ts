@@ -16,27 +16,18 @@ export class HomePage {
     // status: string = '';
     posts = [];
     posts_arr = [];
-<<<<<<< HEAD
     svhost: string ="http://192.168.1.121:8080//viewgram//";
-=======
-    svhost: string ="http://192.168.1.121:8080/viewgram";
->>>>>>> 1c6327624134656544d9bfe71004815def15ed1a
     user_id:number;
     loaded: boolean = false;
   constructor(
     public navCtrl: NavController,
     private storage:Storage,
     private httpServices: HttpServicesProvider) {
-<<<<<<< HEAD
       this.svhost= "http://192.168.1.121:8080//viewgram//";
       this.storage.get("user_id").then((data)=>{
         this.user_id=data;
         console.log("id from storage:"+this.user_id);
     });
-=======
-      this.svhost= "http://192.168.1.121:8080/viewgram";
-      
->>>>>>> 1c6327624134656544d9bfe71004815def15ed1a
     this.posts = [];
 
   }
