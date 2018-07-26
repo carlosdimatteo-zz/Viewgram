@@ -21,7 +21,8 @@
             "likes" => "SELECT * FROM likes a INNER JOIN post b ON a.post_id = b.post_id WHERE a.id_user = $1",
             "followers" => "SELECT COUNT (*) FROM app_user a INNER JOIN followers_list b ON a.id_user = b.follower_id_user WHERE b.followed_id_user = $1",
             "following" => "SELECT COUNT (*) FROM app_user a INNER JOIN followers_list b ON a.id_user = b.followed_id_user WHERE b.follower_id_user = $1",
-            "updatenoavatar"=>"UPDATE app_user SET name = $1, username = $2, email = $3, biography = $4 WHERE id_user = $5 "
+            "updatenoavatar"=>"UPDATE app_user SET name = $1, username = $2, email = $3, biography = $4 WHERE id_user = $5 ",
+            "updatewithavatar"=>"UPDATE app_user SET name = $1, username = $2, email = $3, biography = $4, avatar = $5 WHERE id_user = $6"
         ],
         "searchpage" => [
             "user" => "SELECT * FROM app_user WHERE username = $1",

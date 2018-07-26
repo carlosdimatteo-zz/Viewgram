@@ -18,8 +18,15 @@ export class ProfilePage {
   mypost = [];
   posts : '';
   Post : string;
+  svhost: string ='http://192.168.1.121:8080//viewgram//';
 
-constructor(public navCtrl: NavController, public navParams: NavParams,public httpService:HttpServicesProvider,private storage: Storage,public app:App) {
+constructor(
+  public navCtrl: NavController,
+  public navParams: NavParams,
+  public httpService:HttpServicesProvider,
+  private storage: Storage,
+  public app:App) {
+    this.svhost = "http://192.168.1.121:8080//viewgram//";
   
 }
 

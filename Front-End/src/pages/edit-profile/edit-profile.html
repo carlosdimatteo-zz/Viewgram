@@ -6,15 +6,15 @@
 
 
 <ion-content padding>
-    <div align="center">
+    <div align="center" *ngIf="json">
         <ion-avatar>
-            <img src="" style="width: 50%;">
+            <img src="{{svhost}}" style="width: 50%;">
         </ion-avatar>
       <br/>
       <button ion-button clear color="dark" (click)="changePhoto()">Change Profile Photo</button>
     </div>
 
-    <form *ngIf="json"[formGroup]="editForm" (ngSubmit)="editUser()" class="form">
+    <form *ngIf="json" [formGroup]="updateForm" (ngSubmit)="editUser()" class="form">
         <img src="" alt="" class="imglogo">
       <ion-list>
           <ion-item>
@@ -45,7 +45,7 @@
           <ion-input  type="password"  placeholder="Password"  [(ngModel)]="json.password"  name="password" formControlName="password" ></ion-input>
         </ion-item> -->
         <div padding>
-          <button ion-button block type="submit" [disabled]= "!editForm.valid"  color="dark">Save Changes</button>
+          <button ion-button block type="submit" [disabled]= "!updateForm.valid"  color="dark">Save Changes</button>
           <!-- deleted formgroup actions and bindings until helper function is created -->
         </div>
   

@@ -21,6 +21,8 @@ import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { CameraProvider } from '../providers/camera/camera';
 import { PostPage } from '../pages/post/post';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
+import { Camera } from '../../node_modules/@ionic-native/camera';
+import { FileTransfer } from '../../node_modules/@ionic-native/file-transfer';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { UserProfilePage } from '../pages/user-profile/user-profile';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HttpServicesProvider,
-    CameraProvider
+    CameraProvider,
+    Camera,
+    FileTransfer
 
   ]
 })

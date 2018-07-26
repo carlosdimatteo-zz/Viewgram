@@ -12,18 +12,18 @@
     // echo json_encode($bodyData);
 
     $q1 = $queries["profilepage"]["updatenoavatar"];
-    // $q2 = "UPDATE app_user SET name = $1, username = $2, email = $3, biography = $4, avatar = $5 WHERE id_user = $6";
-    // $mydata1 = array($bodyData["name"], bodyDdata["username"], $bodyData["email"], $bodyData["biography"], $bodyData["userid"]);
+    $q2 = $queries["profilepage"]["updatewithavatar"];
+    $mydata1 = array($bodyData["name"], bodyDdata["username"], $bodyData["email"], $bodyData["biography"], $bodyData["userid"]);
     $finalq;
     $mydata;
-//    (($bodyData['haveAvatar']) ? $finalq = $q2 : $finalq = $q1);
-    // if($bodyData['haveAvatar']) {
-    //     $finalq = $q2;
-    //     $mydata = array($bodyData["name"], bodyDdata["username"], $bodyData["email"], $bodyData["biography"], $bodyData["path"], $bodyData["userid"]);
-    // } else {
-        // $finalq = $q1;
+   (($bodyData['haveAvatar']) ? $finalq = $q2 : $finalq = $q1);
+    if($bodyData['haveAvatar']) {
+        $finalq = $q2;
+        $mydata = array($bodyData["name"], bodyDdata["username"], $bodyData["email"], $bodyData["biography"], $bodyData["path"], $bodyData["userid"]);
+    } else {
+        $finalq = $q1;
         $mydata = array($bodyData["name"], $bodyData["username"], $bodyData["email"], $bodyData["biography"], $bodyData["id_user"]);
-    // }
+    }
     $connection = getConnection();
         
         try {
