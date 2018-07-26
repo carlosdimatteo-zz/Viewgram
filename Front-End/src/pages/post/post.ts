@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage} from '@ionic/storage';
 import { HttpServicesProvider } from '../../providers/http-services/http-services';
 import { UserProfilePage } from '../user-profile/user-profile';
+import { HomePage } from '../home/home';
 /**
  * Generated class for the PostPage page.
  *
@@ -44,6 +45,9 @@ export class PostPage {
       console.log(res);
       let resjson=res
       console.log(resjson);
+      if(resjson.data>5){
+        this.navCtrl.setRoot(HomePage);
+      }
       this.fetchPost();
     });
   }

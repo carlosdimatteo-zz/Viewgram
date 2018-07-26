@@ -10,7 +10,7 @@
             "loginquery" => "SELECT * FROM app_user WHERE username = $1",
         ],
         "homepage" => [
-            "followerspost" => "SELECT c.username,a.* FROM ((post_1 a INNER JOIN followers_list b ON a.id_user = b.followed_id_user )INNER JOIN app_user c ON a.id_user = c.id_user ) WHERE b.follower_id_user = $1 OR a.id_user = $1 ORDER BY a.created_at DESC",
+            "followerspost" => "SELECT DISTINCT c.username,a.* FROM ((post_1 a INNER JOIN followers_list b ON a.id_user = b.followed_id_user )INNER JOIN app_user c ON a.id_user = c.id_user ) WHERE b.follower_id_user = $1 or a.id_user = $1 ORDER BY a.created_at DESC",
             // "followerspost" =>"SELECT * FROM post_1 where $1",
             "selecteduser" => "SELECT * FROM app_user WHERE id_user = $1"
         ],
@@ -40,7 +40,7 @@
         "interaction" => [
             "deletecomment" => "DELETE FROM comments WHERE id_user= $1 AND post_id = $2",
             "dislike" => "DELETE FROM likes WHERE id_user= $1 AND post_id = $2",
-            "report" => "UPDATE post_1 SET report_count = report_count + 1 WHERE post_id = $1",
+            "report" => "UPDATE post_1 SET report_count = report_count + 1 WHERE post_id = $1 RETURNING report_count",
             "comment"=> "INSERT INTO comments (post_id,id_user,created_at,comment_text) VALUES ($1,$2,$3,$4)",
             "like"=> "INSERT INTO likes VALUES ($1,$2)"
         ]

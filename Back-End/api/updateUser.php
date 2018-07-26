@@ -19,7 +19,7 @@
    (($bodyData['haveAvatar']) ? $finalq = $q2 : $finalq = $q1);
     if($bodyData['haveAvatar']) {
         $finalq = $q2;
-        $mydata = array($bodyData["name"], bodyDdata["username"], $bodyData["email"], $bodyData["biography"], $bodyData["path"], $bodyData["userid"]);
+        $mydata = array($bodyData["name"], bodyDdata["username"], $bodyData["email"], $bodyData["biography"], $bodyData["path"], $bodyData["id_user"]);
     } else {
         $finalq = $q1;
         $mydata = array($bodyData["name"], $bodyData["username"], $bodyData["email"], $bodyData["biography"], $bodyData["id_user"]);
