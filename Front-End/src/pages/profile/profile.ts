@@ -15,10 +15,10 @@ export class ProfilePage {
 
   json:Object;
   user_id:string;
-  mypost = [];
-  posts : '';
+  liked_posts:any
+  posts :any;
   Post : string;
-  svhost: string ='http://192.168.1.121:8080//viewgram//';
+  svhost: string ='http://192.168.56.1:8080//viewgram//';
 
 constructor(
   public navCtrl: NavController,
@@ -26,7 +26,7 @@ constructor(
   public httpService:HttpServicesProvider,
   private storage: Storage,
   public app:App) {
-    this.svhost = "http://192.168.1.121:8080//viewgram//";
+    this.svhost = "http://192.168.56.1:8080//viewgram//";
   
 }
 
@@ -34,12 +34,12 @@ ionViewDidLoad() {
   console.log('ionViewDidLoad ProfilePage');
   this.storage.get("user_id").then((data)=>{
     this.user_id=data;
-  console.log(this.user_id);
-  this.fetchProfile();});
+  console.log(this.user_id);});
 }
 
 ionViewWillEnter(){
   this.Post ='userPosts';
+  this.fetchProfile()
 }
 
   goToPost(id){
@@ -69,16 +69,18 @@ ionViewWillEnter(){
 fetchProfile() {
   this.httpService.fetch(null,"GET","Profile.php?user_id="+this.user_id)
     .subscribe((res) => {
-      console.log("Response: "+JSON.stringify(res));
+      
+      if(res.status == 200) {
+        console.log("Response: "+JSON.stringify(res));
       this.json=res.data;
+      this.posts=res.posts
+      this.liked_posts=res.liked_posts
       console.log("JSON:"+JSON.stringify(this.json));
-      if(res.status === 200) {
-        res.posts.map((p) => {
-          p.username = res.data.username;
-          this.mypost.push(p);
-        });
+        // res.posts.map((p) => {
+        //   p.username = res.data.username;
+        //   this.mypost.push(p);
+        // });
       }
-      console.log("my post: "+JSON.stringify(this.mypost));
     });
     
 }

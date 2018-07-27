@@ -16,14 +16,14 @@ export class HomePage {
     // status: string = '';
     posts = [];
     posts_arr = [];
-    svhost: string ="http://192.168.1.121:8080//viewgram//";
+    svhost: string ="http://192.168.56.1:8080//viewgram//";
     user_id:number;
     loaded: boolean = false;
   constructor(
     public navCtrl: NavController,
     private storage:Storage,
     private httpServices: HttpServicesProvider) {
-      this.svhost= "http://192.168.1.121:8080//viewgram//";
+      this.svhost= "http://192.168.56.1:8080//viewgram//";
       this.storage.get("user_id").then((data)=>{
         this.user_id=data;
         console.log("id from storage:"+this.user_id);

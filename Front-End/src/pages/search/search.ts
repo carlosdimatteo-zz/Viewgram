@@ -57,10 +57,12 @@ export class SearchPage {
 
   toggleHt(){
     this.json.ht=true
+    this.json.user=false
     console.log("search ht? :"+this.json.ht)
   }
   toggleUser(){
     this.json.user=true
+    this.json.ht=false
     console.log("search user?: "+this.json.user)
   }
   toggleLocation(){

@@ -17,7 +17,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class HttpServicesProvider {
 //   svhost: string = 'http://172.20.10.4:8080/viewgram/api';
-    svhost: string = 'http://192.168.1.121:8080/viewgram/api';
+    svhost: string = 'http://192.168.56.1:8080/viewgram/api';
     
   constructor(private http: HttpClient) {
   }

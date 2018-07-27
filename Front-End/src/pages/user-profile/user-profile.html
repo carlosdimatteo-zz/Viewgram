@@ -92,7 +92,7 @@
         <div [ngSwitch]="Post">
           <ion-row *ngSwitchCase="'userPosts'">
             <ion-col col-4 *ngFor="let post of json.posts" style="height: 80px; overflow: hidden;">
-              <img (click)="goToPost(post.post_id)" src="http://192.168.1.121:8080//viewgram//{{post.post_filename}}">
+              <img (click)="goToPost(post.post_id)" src="http://192.168.56.1:8080//viewgram//{{post.post_filename}}">
             </ion-col>
           </ion-row>
 
@@ -107,7 +107,7 @@
                 <p>{{json.data.post_longitude}}-{{json.data.post_latitude}}</p>
               </ion-item>
 
-              <img src="http://192.168.1.121:8080//viewgram//{{post.post_filename}}">
+              <img src="http://192.168.56.1:8080//viewgram//{{post.post_filename}}">
 
               <ion-card-content>
                 <p>{{post.post_caption}}</p>

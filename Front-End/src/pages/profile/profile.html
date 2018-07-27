@@ -87,13 +87,13 @@
             </ion-segment>
           </div>
           <div [ngSwitch]="Post">
-            <!-- <ion-row *ngSwitchCase="'likedPosts'">
-            <ion-col *ngFor="let post of json.liked_posts">
+            <ion-row *ngSwitchCase="'likedPosts'">
+            <ion-col *ngFor="let post of liked_posts">
               <img (click)="goToPost(post.post_id)" src="{{post.post_filename}}">
             </ion-col>
-          </ion-row> -->
+          </ion-row>
           <ion-row *ngSwitchCase="'userPostsList'">
-              <ion-card *ngFor="let post of mypost">
+              <ion-card *ngFor="let post of posts">
   
                 <ion-item>
                   <ion-avatar item-start>
@@ -103,14 +103,9 @@
                   <p>{{post.post_longitude}}-{{post.post_latitude}}</p>
                 </ion-item>
   
-<<<<<<< HEAD
 
                 <img src="{{svhost}}{{post.post_filename}}">
 
-=======
-                <img src="http://192.168.1.121:8080//viewgram//{{post.post_filename}}">
-  
->>>>>>> 1c6327624134656544d9bfe71004815def15ed1a
                 <ion-card-content>
                   <p>{{post.post_caption}}</p>
                 </ion-card-content>
@@ -174,7 +169,7 @@
             </ion-row>
 
             <ion-row *ngSwitchCase="'userPosts'">
-              <ion-col col-4 *ngFor="let post of mypost" style="height: 80px; overflow: hidden;">
+              <ion-col col-4 *ngFor="let post of posts" style="height: 80px; overflow: hidden;">
                 <div text-center>
                     <img (click)="goToPost(post.post_id)" src="{{svhost}}{{post.post_filename}}">
                 </div>
