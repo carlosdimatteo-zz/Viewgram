@@ -13,7 +13,7 @@ declare var cordova:any;
 export class CameraProvider {
  
   image: string = '';
-  svhost:'http://192.168.1.121:8080/viewgram';
+  svhost:'http://192.168.43.183:8080/viewgram';
   path:string=""
   updateForm;
 
@@ -25,7 +25,7 @@ export class CameraProvider {
     private loading: LoadingController
     ) {
     console.log('Hello CameraProvider Provider');
-      this.svhost= "http://192.168.1.121:8080/viewgram";
+      this.svhost= "http://192.168.43.183:8080/viewgram";
   }
 
   choose() {
@@ -50,11 +50,11 @@ export class CameraProvider {
     op.present();
   }
 
-  upload(form: any, isPost: boolean, url: any) {
+ async upload(form: any, isPost: boolean, url: any) {
     
     console.log("this should have an id : "+JSON.stringify(form));
     const loader = this.showLoader();
-    console.log("loading loader"); loader.present();
+    console.log("loading loader"); //loader.present();
     const fileTransfer: FileTransferObject = this.transfer.create();
     let options: FileUploadOptions = {
        fileKey: 'file',
@@ -64,28 +64,28 @@ export class CameraProvider {
        headers: {},
        params: {data: form}
     }
-    fileTransfer.upload(this.image, `${this.svhost}/api/uploadFile.php`, options)
+     fileTransfer.upload(this.image, `${this.svhost}/api/uploadFile.php`, options)
      .then((data) => { 
        let path = (JSON.parse(data.response)).path;
        this.path = path;
        form.path = this.path;
        console.log('FORM'+JSON.stringify(form));
        console.log("next will call upload.php");
-       this.httpService.fetch(form, 'POST', url)
+        this.httpService.fetch(form, 'POST', url)
         .subscribe(
           (res) => {
             console.log('res'+JSON.stringify(res));
             console.log("requested to upload.php: "+JSON.stringify(form));
           //alert('asdasdasdas'+JSON.stringify(res))
-            loader.dismiss();
+            //loader.dismiss();
           },
           (err) => {
-            loader.dismiss();
+            //loader.dismiss();
             alert('Error fetching post'+JSON.stringify(err));
           });
     })
     .catch(err => {
-      loader.dismiss();
+      //loader.dismiss();
       alert('Error'+JSON.stringify(err));
     })
   }
