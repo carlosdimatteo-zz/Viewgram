@@ -32,7 +32,7 @@
     <span id="username">@{{u.username}}</span>
   </button>
 </ion-list>
-<ion-list *ngIf="json.ht&&posts">
+<ion-list *ngIf="json.ht&&!json.user&&posts">
   <span>posts</span>
   <button (click)="goToPost(u.post_id)" ion-item *ngFor="let u of posts" padding>
     <span  id="pos-captiont">caption: {{u.post_caption}}</span>

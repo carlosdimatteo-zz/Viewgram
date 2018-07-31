@@ -31,23 +31,35 @@ export class SearchPage {
     this.navCtrl.push(UserProfilePage,{id:id});
   }
 
-  onInput(event){
-    console.log(event.target.value)
-    this.json.key=event.target.value
+  onInput({target:{value}}){
+    console.log(value)
+    if(value==""){
+      this.posts=[]
+      this.users=[]
+    }else{
+    this.json.key=value
     this.httpService.fetch(this.json,"POST","search.php").subscribe(res=>{
-      console.log(res.data)
-      if(this.json.ht){
-        this.posts=res.data
-        console.log("posts : "+JSON.stringify(this.posts))
-      }else if(this.json.user){
-      console.log(res)
-      this.users=res.data
-      console.log("users:"+JSON.stringify(this.users))
+      if(res.data){
+        console.log(res.data)
+        if(this.json.ht){
+          this.posts=res.data
+          console.log("posts : "+JSON.stringify(this.posts))
+        }else if(this.json.user){
+        console.log(res)
+        this.users=res.data
+        console.log("users:"+JSON.stringify(this.users))
+        }else{
+          this.posts=res.data
+          console.log("posts : "+JSON.stringify(this.posts))
+        }
       }else{
-        this.posts=res.data
-        console.log("posts : "+JSON.stringify(this.posts))
+        this.posts=[]
+      this.users=[]
+
       }
+      
     })
+  }
   }
  
   goToPost(id){
