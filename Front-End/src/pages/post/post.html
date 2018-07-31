@@ -22,6 +22,11 @@
       
         <ion-card-content>
           <p>{{json.data.post_caption}}</p>
+          <p>Tags:</p>
+          <p  *ngFor="let tag of json.data.tags" >#{{tag.hashtag}}</p>
+          <p>Tagged Users:</p>
+          <p  *ngFor="let tag of json.data.taggedUsers" ><a (click)="goToProfile(tag.id_user)">@{{tag.username}}</a>,</p>
+        
         </ion-card-content>
         <ion-col right text-right>
             <ion-note>
