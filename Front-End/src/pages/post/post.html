@@ -65,6 +65,7 @@
           <ion-item *ngFor=" let comment of json.data.comments">
                 <h2>{{comment.username}}</h2>
                 <p>{{comment.comment_text}}</p>
+                <button *ngIf="comment.id_user==user_id || json.data.id_user == user_id " ion-button icon-right clear small (click)="deleteComment(comment)"><ion-icon name="trash"></ion-icon></button>
           </ion-item>
           <form (ngSubmit)="comment()">
           <ion-item>

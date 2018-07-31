@@ -80,6 +80,12 @@ export class PostPage {
       });
     }
 
+    deleteComment(comment){
+      this.httpService.fetch(comment,"POST","deleteComment.php").subscribe((res)=>{
+        console.log(res)
+        this.fetchPost();
+      })
+    }
 
     like(){
       this.httpService.fetch(null,"GET","like.php?user_id="+this.user_id+"&post_id="+this.navParams.get("id"))
