@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,AlertController } from 'ionic-angular';
 import { FormBuilder , FormGroup, Validators, FormControl } from '@angular/forms';
-import { HttpServicesProvider } from '../../providers/http-services/http-services';
+import { HttpUserProvider } from '../../providers/http-user/http-user';
 import { ProfilePage } from '../profile/profile';
 import { CameraProvider } from '../../providers/camera/camera';
 
@@ -23,7 +23,7 @@ export class EditProfilePage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public formBuilder: FormBuilder,
-    private httpService:HttpServicesProvider,
+    private httpService:HttpUserProvider,
     public alertCtrl : AlertController,
     private mediaHandler: CameraProvider) {
       // this.updateForm = this.formBuilder.group({
@@ -64,7 +64,7 @@ export class EditProfilePage {
     if((this.mediaHandler.getBase64()).length ===0){
       this.json['haveAvatar'] = false;
       console.log("json to send to server"+JSON.stringify(this.json));
-    this.httpService.fetch(this.json,"POST","updateUser.php")
+    this.httpService.editProfile(this.json)
     .subscribe((res) => {
       console.log(res);
       this.resJson=res;

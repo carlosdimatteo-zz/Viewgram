@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { jsonpCallbackContext } from '@angular/common/http/src/module';
-import { HttpServicesProvider } from '../../providers/http-services/http-services';
+
 import { UserProfilePage } from '../user-profile/user-profile';
 import { PostPage } from '../post/post';
+import { HttpPostsProvider } from '../../providers/http-posts/http-posts';
 
 /**
  * Generated class for the SearchPage page.
@@ -21,7 +21,7 @@ export class SearchPage {
   json:{key:string,ht:boolean,user:boolean}
   users=[]
   posts=[]
-  constructor(public navCtrl: NavController, public navParams: NavParams,public httpService:HttpServicesProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public httpPost:HttpPostsProvider) {
     this.json={key:"",ht:false,user:true};
     this.json.ht=false
   }
@@ -38,7 +38,7 @@ export class SearchPage {
       this.users=[]
     }else{
     this.json.key=value
-    this.httpService.fetch(this.json,"POST","search.php").subscribe(res=>{
+    this.httpPost.search(this.json).subscribe(res=>{
       if(res.data){
         console.log(res.data)
         if(this.json.ht){

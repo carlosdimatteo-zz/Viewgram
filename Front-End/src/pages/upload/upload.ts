@@ -5,7 +5,7 @@ import { Camera } from '@ionic-native/camera';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { Storage } from '@ionic/storage'
 import { HomePage } from '../home/home';
-import { HttpServicesProvider } from '../../providers/http-services/http-services';
+import { HttpUserProvider } from '../../providers/http-user/http-user';
 import { LoadingController ,Loading} from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
@@ -18,7 +18,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     FileTransfer,
     FileTransferObject,
     CameraProvider,
-    HttpServicesProvider,
+    HttpUserProvider,
     Geolocation
 
   ]
@@ -42,7 +42,7 @@ export class UploadPage {
     private storage:Storage,
     private loading: LoadingController,
     private geolocation: Geolocation,
-    private httpService : HttpServicesProvider
+    private httpService : HttpUserProvider
   ) {
     this.svhost= "http://192.168.56.1:8080/viewgram";
     this.storage.get("user_id").then((data)=>{
@@ -83,7 +83,7 @@ submitForm() {
     if(this.checkedLocation) {
       this.getLocation()
         .then((pos: any) => {
-          this.httpService.getLocation(`http://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.latitude},${pos.longitude}&sensor=false?key=AIzaSyCuP2So9c8btOOcewqGchIC2iFE2JYxBDs`).subscribe(({results:{formatted_address: location}})=>{
+          this.httpService.getLocation(pos.latitude,pos.longitude).subscribe(({results:{formatted_address: location}})=>{
             json['lat'] = pos.latitude;
             json['long'] = pos.longitude;
             json["location"]= location

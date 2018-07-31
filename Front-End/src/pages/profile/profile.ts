@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { PostPage } from '../post/post';
-import { HttpServicesProvider } from '../../providers/http-services/http-services';
+import { HttpUserProvider } from '../../providers/http-user/http-user'
 import { Storage } from '@ionic/storage';
 import { EditProfilePage } from '../edit-profile/edit-profile';
 import { LoginPage } from '../login/login';
@@ -23,7 +23,7 @@ export class ProfilePage {
 constructor(
   public navCtrl: NavController,
   public navParams: NavParams,
-  public httpService:HttpServicesProvider,
+  public httpService:HttpUserProvider,
   private storage: Storage,
   public app:App) {
     this.svhost = "http://192.168.56.1:8080//viewgram//";
@@ -67,7 +67,7 @@ ionViewWillEnter(){
   }
 
 fetchProfile() {
-  this.httpService.fetch(null,"GET","Profile.php?user_id="+this.user_id)
+  this.httpService.profileData(this.user_id)
     .subscribe((res) => {
       
       if(res.status == 200) {
