@@ -13,7 +13,7 @@ declare var cordova:any;
 export class CameraProvider {
  
   image: string = '';
-  svhost:'http://10.240.130.170:8080/viewgram';
+  svhost:'http://192.168.43.183:8080/viewgram';
   path:string=""
   updateForm;
 
@@ -25,7 +25,7 @@ export class CameraProvider {
     private loading: LoadingController
     ) {
     console.log('Hello CameraProvider Provider');
-      this.svhost= "http://10.240.130.170:8080/viewgram";
+      this.svhost= "http://192.168.43.183:8080/viewgram";
   }
 
   choose() {
@@ -54,7 +54,8 @@ export class CameraProvider {
     
     console.log("this should have an id : "+JSON.stringify(form));
     const loader = this.showLoader();
-    console.log("loading loader"); loader.present();
+    console.log("loading loader"); 
+    //loader.present();
     const fileTransfer: FileTransferObject = this.transfer.create();
     let options: FileUploadOptions = {
        fileKey: 'file',
@@ -64,6 +65,7 @@ export class CameraProvider {
        headers: {},
        params: {data: form}
     }
+    console.log('next will upload');
     fileTransfer.upload(this.image, `${this.svhost}/api/uploadFile.php`, options)
      .then((data) => { 
        let path = (JSON.parse(data.response)).path;
@@ -77,7 +79,7 @@ export class CameraProvider {
             console.log('res'+JSON.stringify(res));
             console.log("requested to upload.php: "+JSON.stringify(form));
           //alert('asdasdasdas'+JSON.stringify(res))
-            loader.dismiss();
+           // loader.dismiss();
           },
           (err) => {
             loader.dismiss();

@@ -14,9 +14,9 @@
 
 
 <ion-content padding>
-  <button ion-button *ngIf="!this.json.ht"(click)="toggleHt()" >search posts by hashtags</button>
-  <button ion-button *ngIf="!this.json.user"(click)="toggleUser()" >search Users</button>
-  <button ion-button *ngIf="this.json.user || this.json.ht" (click)="toggleLocation()"> Search posts by Location</button>
+  <button ion-button color="dark" *ngIf="!this.json.ht"(click)="toggleHt()" >search posts by hashtags</button>
+  <button ion-button color="dark" *ngIf="!this.json.user"(click)="toggleUser()" >search Users</button>
+  <button ion-button color="dark" *ngIf="this.json.user || this.json.ht" (click)="toggleLocation()"> Search posts by Location</button>
 
     <ion-searchbar
   [(ngModel)]="myInput"

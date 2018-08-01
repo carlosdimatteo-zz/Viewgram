@@ -27,17 +27,17 @@
 
             // followers and following count 
             
-            $followers = pg_prepare($connection, "followers", $queries["profilepage"]["followers"]);
-            $followers = pg_execute($connection, "followers", array($id_user));
-            $followers = pg_fetch_assoc($followers)["count"];
+            $followerscount = pg_prepare($connection, "followerscount", $queries["profilepage"]["followers"]);
+            $followerscount = pg_execute($connection, "followerscount", array($id_user));
+            $followerscount = pg_fetch_assoc($followerscount)["count"];
             
-            $r["followers"]=$followers;
+            $r["followerscount"]=$followerscount;
 
-            $following = pg_prepare($connection, "following", $queries["profilepage"]["following"]);
-            $following = pg_execute($connection, "following", array($id_user));
-            $following = pg_fetch_assoc($following)["count"];
+            $followingcount = pg_prepare($connection, "followingcount", $queries["profilepage"]["following"]);
+            $followingcount = pg_execute($connection, "followingcount", array($id_user));
+            $followingcount = pg_fetch_assoc($followingcount)["count"];
             
-            $r["following"]=$following;
+            $r["followingcount"]=$followingcount;
 
             //fetch number of posts 
             $postscount = pg_prepare($connection, "postscount", $queries["profilepage"]["postscount"]);
@@ -52,6 +52,22 @@
             $follow = pg_fetch_assoc($follow)["count"];
 
             $r["logged_following"]= ($follow==1) ? true:false;
+
+             // fetch followers username and id from database 
+             $followers = pg_prepare($connection, "followers", "SELECT a.username,a.id_user FROM app_user a INNER JOIN followers_list b ON a.id_user = b.follower_id_user WHERE b.followed_id_user = $1");
+             $followers = pg_execute($connection, "followers", array($id_user));
+             $followers = pg_fetch_all($followers);
+             
+             $r["followers"]=$followers;
+             
+ 
+             // fetch following username and id from database 
+             $following = pg_prepare($connection, "following", "SELECT a.username,a.id_user FROM app_user a INNER JOIN followers_list b ON a.id_user = b.followed_id_user WHERE b.follower_id_user = $1");
+             $following = pg_execute($connection, "following", array($id_user));
+             $following = pg_fetch_all($following);
+             
+             $r["following"]=$following;
+ 
             if($r){
                 echo json_encode([
                     "status" => 200,

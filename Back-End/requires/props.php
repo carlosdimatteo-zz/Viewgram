@@ -35,8 +35,8 @@
             "getlikes" => "SELECT COUNT(*) FROM likes WHERE post_id = $1",
             "user_liked"=> "SELECT * FROM likes WHERE post_id =$1 AND id_user = $2",
             "getcomments" => "SELECT a.username,c.* FROM comments c INNER JOIN app_user a ON c.id_user=a.id_user WHERE post_id = $1",
-            "hashtags"=>"SELECT h.hashtag FROM hashtags h INNER JOIN post_hashtag ph ON ph.hashtag_id=h.hashtag_id WHERE h.hashtag_id in ( SELECT hashtag_id FROM post_hashtag WHERE post_id = $1)",
-            "taggedUsers"=>"SELECT h.username,h.id_user FROM app_user h INNER JOIN tagged_user ph ON ph.id_user=h.id_user WHERE h.id_user IN ( SELECT id_user FROM tagged_user WHERE post_id =  $1)"
+            "hashtags"=>"SELECT h.hashtag FROM hashtags h INNER JOIN post_hashtag ph ON ph.hashtag_id=h.hashtag_id WHERE h.hashtag_id in ( SELECT hashtag_id FROM post_hashtag WHERE post_id = $1) AND ph.post_id =$1",
+            "taggedUsers"=>"SELECT h.username,h.id_user FROM app_user h INNER JOIN tagged_user ph ON ph.id_user=h.id_user WHERE h.id_user IN ( SELECT id_user FROM tagged_user WHERE post_id =  $1) AND ph.post_id =$1"
             
         ],
         "interaction" => [

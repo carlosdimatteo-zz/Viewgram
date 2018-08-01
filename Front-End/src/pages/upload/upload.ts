@@ -31,7 +31,7 @@ export class UploadPage {
   checkedLocation: boolean;
   lat: number = null;
   long: number = null;
-  svhost:'http://10.240.130.170:8080/viewgram';
+  svhost:'http://192.168.43.183:8080/viewgram';
   resJson:{user_id:number};
   home = HomePage;
   user_id:number;
@@ -44,7 +44,7 @@ export class UploadPage {
     private geolocation: Geolocation,
     private httpService : HttpUserProvider
   ) {
-    this.svhost= "http://10.240.130.170:8080/viewgram";
+    this.svhost= "http://192.168.43.183:8080/viewgram";
     this.storage.get("user_id").then((data)=>{
       this.user_id=data;
     console.log("id from storage:"+this.user_id);
@@ -73,7 +73,8 @@ submitForm() {
   // });
 
     const loader = this.showLoader();
-    console.log("loading loader"); loader.present();
+    console.log("loading loader"); 
+    //loader.present();
     let json = {
       userid: this.user_id,
       caption: this.caption,
@@ -96,10 +97,11 @@ submitForm() {
                   
               this.mediaHandler.upload(json, true, 'upload.php');
               console.log('Successful');
-              loader.dismiss();
-              loader.onDidDismiss(() => 
-              this.navCtrl.setRoot(this.home));
-              console.log('Perfect');
+              //loader.dismiss();
+              // loader.onDidDismiss(() => 
+              // this.navCtrl.setRoot(this.home));
+              // console.log('Perfect');
+              this.navCtrl.setRoot(HomePage)
             }else{
              alert("couldnt get location")
              this.navCtrl.setRoot(UploadPage)

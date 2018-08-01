@@ -5,6 +5,8 @@ import { PostPage } from '../post/post';
 import { ProfilePage } from '../profile/profile';
 import { HttpUserProvider } from '../../providers/http-user/http-user';
 import { HttpInteractionProvider } from '../../providers/http-interaction/http-interaction';
+import { FollowersListPage } from '../followers-list/followers-list';
+import { FollowingListPage } from '../following-list/following-list';
 
 @IonicPage()
 @Component({
@@ -15,6 +17,7 @@ export class UserProfilePage {
       json:Object;
       user_id:string;
       Post: string;
+      followers: object;
 
   constructor(public httpUser:HttpUserProvider ,public httpInt: HttpInteractionProvider ,public navCtrl: NavController, public navParams: NavParams,private storage:Storage) {
 
@@ -34,6 +37,21 @@ export class UserProfilePage {
     console.log(id);
     this.navCtrl.push(PostPage,{id:id});
   }
+
+  followerPage(id){
+        
+    console.log("navigating id:"+id);
+    this.navCtrl.push(FollowersListPage,{json:this.json["data"]});
+
+    
+}
+
+followingPage(id){
+  console.log("navigating id:"+id);
+  this.navCtrl.push(FollowingListPage,{json:this.json["data"]});
+}
+
+
 
   follow(){
     this.httpInt.follow(this.navParams.get('id'),this.user_id)

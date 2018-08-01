@@ -15,10 +15,13 @@
 
 <ion-content padding>
 
-    <div *ngIf="json">
-        <ion-list *ngFor="let followers of json.followers">
-            <a (click)="goToProfile(followers.id_user)">{{followers.username}}</a>
-        </ion-list>
-    </div>
+    <ion-list *ngIf="json">
+        
+            <!-- <a (click)="goToProfile(followers.id_user)">{{followers.username}}</a> -->
+            <button (click)="goToProfile(followers.id_user)"  ion-item *ngFor="let followers of json.followers" padding>
+              <span id="username">@{{followers.username}}</span>
+            </button>
+       
+      </ion-list>
 
 </ion-content>

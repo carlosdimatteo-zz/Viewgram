@@ -18,13 +18,12 @@
           <p>{{json.data.location}}</p>
         </ion-item>
       
-        <img src="http://192.168.0.102:8080//viewgram//{{json.data.post_filename}}">
+        <img src="http://192.168.43.183:8080//viewgram//{{json.data.post_filename}}">
       
         <ion-card-content>
-          <p *ngIf="json.data.likes" color="dark"><a (click)="goToList(json.data.id_user)">Likes</a></p>
           <p>{{json.data.post_caption}}</p>
-          <div *ngIf="json.data.tags">Tags:</div>
-          <div *ngFor="let tag of json.data.tags" >#{{tag.hashtag}}</div>
+          <p *ngIf="json.data.tags">Tags:</p>
+          <span *ngFor="let tag of json.data.tags" >#{{tag.hashtag}}</span>
           <p *ngIf="json.data.taggedUsers">Tagged Users:</p>
           <div  *ngFor="let tag of json.data.taggedUsers" ><a (click)="goToProfile(tag.id_user)">@{{tag.username}}</a>,</div>
         

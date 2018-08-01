@@ -22,7 +22,7 @@ export class ProfilePage {
   liked_posts:any
   posts :any;
   Post : string;
-  svhost: string ='http://10.240.130.170:8080//viewgram//';
+  svhost: string ='http://192.168.43.183:8080//viewgram//';
 
 constructor(
   public navCtrl: NavController,
@@ -30,7 +30,7 @@ constructor(
   public httpService:HttpUserProvider,
   private storage: Storage,
   public app:App) {
-    this.svhost = "http://10.240.130.170:8080//viewgram//";
+    this.svhost = "http://192.168.43.183:8080//viewgram//";
   
 }
 
