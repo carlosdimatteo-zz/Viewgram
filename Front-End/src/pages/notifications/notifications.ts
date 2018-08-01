@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { HttpUserProvider } from '../../providers/http-user/http-user';
+import { HttpServicesProvider } from '../../providers/http-services/http-services';
 import { Storage } from '@ionic/storage';
 import { PostPage } from '../post/post';
 
@@ -19,7 +19,7 @@ import { PostPage } from '../post/post';
 export class NotificationsPage {
   posts=[]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public http:HttpUserProvider,private storage:Storage,public alertCtrl:AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public httpServices :HttpServicesProvider,private storage:Storage,public alertCtrl:AlertController) {
   }
 
   goToPost(id){
@@ -32,7 +32,7 @@ export class NotificationsPage {
     this.posts=[];
       this.storage.get("user_id").then((data)=>{
 
-        this.http.notifications(data).subscribe((res)=>{
+        this.httpServices.fetch(null,"GET","mentions.php?userid="+data).subscribe((res)=>{
           if(res.status==200){
             this.posts=res.data
             console.log("posts where you are tagged: "+JSON.stringify(this.posts))

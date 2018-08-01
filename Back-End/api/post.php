@@ -27,16 +27,6 @@
             $comments = pg_prepare($connection, "comments", $queries["postpage"]["getcomments"]);
             $comments = pg_execute($connection, "comments", array($post_id));
             $comments = pg_fetch_all($comments);
-
-            // fetch post tags
-            $tags = pg_prepare($connection, "tags", $queries["postpage"]["hashtags"]);
-            $tags = pg_execute($connection, "tags", array($post_id));
-            $tags = pg_fetch_all($tags);
-
-            // fetch post tags
-            $taggedUsers = pg_prepare($connection, "taggedUsers", $queries["postpage"]["taggedUsers"]);
-            $taggedUsers = pg_execute($connection, "taggedUsers", array($post_id));
-            $taggedUsers = pg_fetch_all($taggedUsers);
             
             // query if user has liked the post 
             $liked = pg_prepare($connection, "liked", $queries["postpage"]["user_liked"]);
@@ -44,8 +34,6 @@
             $liked = pg_fetch_assoc($liked);
                 $postData["likes"]=$likes;
                 $postData["comments"]=$comments;
-                $postData["tags"]=$tags;
-                $postData["taggedUsers"]=$taggedUsers;
                 $postData["user_liked"]= ($liked) ? true:false;
             
             if($postData){

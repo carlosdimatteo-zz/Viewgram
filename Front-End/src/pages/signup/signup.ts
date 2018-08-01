@@ -1,10 +1,11 @@
 import { StatusBar } from '@ionic-native/status-bar';
 import { LoginPage } from './../login/login';
-import { HttpAuthProvider } from './../../providers/http-auth/http-auth';
+import { HttpServicesProvider } from './../../providers/http-services/http-services';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,AlertController} from 'ionic-angular';
 import { FormBuilder , FormGroup, Validators } from '@angular/forms';
 import {Storage} from '@ionic/storage'
+import { generateJson } from '../../helpers/generateJson';
 @IonicPage()
 @Component({
   selector: 'page-signup',
@@ -15,7 +16,7 @@ export class SignupPage {
     json:{name:string,username:string,email:string,password:string,bio:string}
     resJson:{user_id:number,res:string,status:number}
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public formBuilder: FormBuilder,private httpService:HttpAuthProvider,private storage:Storage,public alertCtrl:AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public formBuilder: FormBuilder,private httpService:HttpServicesProvider,private storage:Storage,public alertCtrl:AlertController) {
     this.signUpForm = this.formBuilder.group({
       name:['', Validators.required],
       email:['', Validators.required],
@@ -40,7 +41,7 @@ export class SignupPage {
     this.json.bio=""
     console.log("generated json: "+JSON.stringify(this.json))
 
-    this.httpService.signup(this.json)
+    this.httpService.fetch(this.json,"POST","register.php")
     .subscribe((res) => {
       console.log(res);
       this.resJson=res;

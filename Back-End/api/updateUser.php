@@ -13,13 +13,13 @@
 
     $q1 = $queries["profilepage"]["updatenoavatar"];
     $q2 = $queries["profilepage"]["updatewithavatar"];
-    $mydata1 = array($bodyData["name"], $bodyData["username"], $bodyData["email"], $bodyData["biography"], $bodyData["id_user"]);
+    $mydata1 = array($bodyData["name"], bodyDdata["username"], $bodyData["email"], $bodyData["biography"], $bodyData["userid"]);
     $finalq;
     $mydata;
    (($bodyData['haveAvatar']) ? $finalq = $q2 : $finalq = $q1);
     if($bodyData['haveAvatar']) {
         $finalq = $q2;
-        $mydata = array($bodyData["name"], $bodyData["username"], $bodyData["email"], $bodyData["biography"], $bodyData["path"], $bodyData["id_user"]);
+        $mydata = array($bodyData["name"], bodyDdata["username"], $bodyData["email"], $bodyData["biography"], $bodyData["path"], $bodyData["id_user"]);
     } else {
         $finalq = $q1;
         $mydata = array($bodyData["name"], $bodyData["username"], $bodyData["email"], $bodyData["biography"], $bodyData["id_user"]);
