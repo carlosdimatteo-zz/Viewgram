@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PostPage } from '../post/post';
 import { ProfilePage } from '../profile/profile';
-import { HttpServicesProvider } from '../../providers/http-services/http-services';
+import { HttpUserProvider } from '../../providers/http-user/http-user';
+import { HttpInteractionProvider } from '../../providers/http-interaction/http-interaction';
 
 @IonicPage()
 @Component({
@@ -15,7 +16,7 @@ export class UserProfilePage {
       user_id:string;
       Post: string;
 
-  constructor(public httpService:HttpServicesProvider ,public navCtrl: NavController, public navParams: NavParams,private storage:Storage) {
+  constructor(public httpUser:HttpUserProvider ,public httpInt: HttpInteractionProvider ,public navCtrl: NavController, public navParams: NavParams,private storage:Storage) {
 
     this.Post = 'userPosts';
   }
@@ -35,7 +36,7 @@ export class UserProfilePage {
   }
 
   follow(){
-    this.httpService.fetch(null,"GET","follow.php?followed_id="+this.navParams.get('id')+"&follower_id="+this.user_id)
+    this.httpInt.follow(this.navParams.get('id'),this.user_id)
     .subscribe((res) => {
       console.log(res);
       let resjson=res;
@@ -45,7 +46,7 @@ export class UserProfilePage {
   }
 
   unfollow(){
-    this.httpService.fetch(null,"GET","unfollow.php?followed_id="+this.navParams.get('id')+"&follower_id="+this.user_id)
+    this.httpInt.unfollow(this.navParams.get('id'),this.user_id)
     .subscribe((res) => {
       console.log(res);
       let resjson=res;
@@ -59,7 +60,7 @@ export class UserProfilePage {
     if(this.navParams.get('id')==this.user_id){
       this.navCtrl.setRoot(ProfilePage);
     }else{
-    this.httpService.fetch(null,"GET","UserProfile.php?user_id="+this.navParams.get('id')+"&nav_user="+this.user_id)
+    this.httpUser.userProfileData(this.navParams.get('id'),this.user_id)
       .subscribe((res) => {
         console.log(res);
         this.json=res;

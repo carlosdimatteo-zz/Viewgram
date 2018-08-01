@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content padding>
-  <div>
+  <div *ngIf="posts">
     <ion-card (click)="goToPost(p.post_id)"  *ngFor="let p of posts">
 
       <ion-row>
@@ -33,5 +33,8 @@
     </ion-card>
 
 
+  </div>
+  <div *ngIf="!posts[0]">
+    <p>There are no posts to show , Use the Search Tab To Find users To Follow!</p>
   </div>
 </ion-content>
