@@ -5,7 +5,7 @@ import { Camera } from '@ionic-native/camera';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { Storage } from '@ionic/storage'
 import { HomePage } from '../home/home';
-import { HttpUserProvider } from '../../providers/http-user/http-user';
+import { HttpServicesProvider } from '../../providers/http-services/http-services';
 import { LoadingController ,Loading} from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
@@ -18,7 +18,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     FileTransfer,
     FileTransferObject,
     CameraProvider,
-    HttpUserProvider,
+    HttpServicesProvider,
     Geolocation
 
   ]
@@ -31,7 +31,7 @@ export class UploadPage {
   checkedLocation: boolean;
   lat: number = null;
   long: number = null;
-  svhost:'http://192.168.56.1:8080/viewgram';
+  svhost:'http://192.168.1.121:8080/viewgram';
   resJson:{user_id:number};
   home = HomePage;
   user_id:number;
@@ -42,9 +42,9 @@ export class UploadPage {
     private storage:Storage,
     private loading: LoadingController,
     private geolocation: Geolocation,
-    private httpService : HttpUserProvider
+    private httpService : HttpServicesProvider
   ) {
-    this.svhost= "http://192.168.56.1:8080/viewgram";
+    this.svhost= "http://192.168.1.121:8080/viewgram";
     this.storage.get("user_id").then((data)=>{
       this.user_id=data;
     console.log("id from storage:"+this.user_id);
@@ -83,7 +83,7 @@ submitForm() {
     if(this.checkedLocation) {
       this.getLocation()
         .then((pos: any) => {
-          this.httpService.getLocation(pos.latitude,pos.longitude).subscribe(({results:{formatted_address: location}})=>{
+          this.httpService.getLocation(`http://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.latitude},${pos.longitude}&sensor=false?key=AIzaSyCuP2So9c8btOOcewqGchIC2iFE2JYxBDs`).subscribe(({results:{formatted_address: location}})=>{
             json['lat'] = pos.latitude;
             json['long'] = pos.longitude;
             json["location"]= location

@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 // import { UserProfilePage } from '../user-profile/user-profile';
 import { Storage} from '@ionic/storage';
+import { HttpServicesProvider } from '../../providers/http-services/http-services';
 import { UserProfilePage } from '../user-profile/user-profile';
 import { HomePage } from '../home/home';
-import { HttpInteractionProvider } from '../../providers/http-interaction/http-interaction';
-import { HttpPostsProvider } from '../../providers/http-posts/http-posts';
 /**
  * Generated class for the PostPage page.
  *
@@ -23,7 +22,7 @@ export class PostPage {
    commentJson=<any>{}
     json=<any>{};
     commentBox:Boolean=false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public httpPost :HttpPostsProvider,public httpInt:HttpInteractionProvider,private storage:Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public httpService :HttpServicesProvider,private storage:Storage) {
     
   }
 
@@ -41,7 +40,7 @@ export class PostPage {
   
 
   report(){
-    this.httpInt.report(this.user_id,this.navParams.get("id"))
+    this.httpService.fetch(null,"GET","report.php?user_id="+this.user_id+"&post_id="+this.navParams.get("id"))
     .subscribe((res) => {
       console.log(res);
       let resjson=res
@@ -70,7 +69,7 @@ export class PostPage {
       this.commentJson.post_id=this.json.data.post_id;
       this.commentJson.created_at= new Date().toUTCString();
       console.log(this.commentJson);
-      this.httpInt.comment(this.user_id,this.navParams.get("id"),this.commentJson)
+      this.httpService.fetch(this.commentJson,"POST","comment.php?user_id="+this.user_id+"&post_id="+this.navParams.get("id"))
       .subscribe((res) => {
         console.log(res);
         let resjson=res;
@@ -81,15 +80,9 @@ export class PostPage {
       });
     }
 
-    deleteComment(comment){
-      this.httpInt.deleteComment(comment).subscribe((res)=>{
-        console.log(res)
-        this.fetchPost();
-      })
-    }
 
     like(){
-      this.httpInt.like(+this.user_id,this.navParams.get("id"))
+      this.httpService.fetch(null,"GET","like.php?user_id="+this.user_id+"&post_id="+this.navParams.get("id"))
     .subscribe((res) => {
       console.log(res);
      let resjson=res
@@ -99,7 +92,7 @@ export class PostPage {
     }
 
     dislike(){
-      this.httpInt.dislike(this.user_id,this.navParams.get("id"))
+      this.httpService.fetch(null,"GET","dislike.php?user_id="+this.user_id+"&post_id="+this.navParams.get("id"))
     .subscribe((res) => {
       console.log(res);
       let resjson=res;
@@ -110,7 +103,7 @@ export class PostPage {
 
 
   fetchPost(){
-    this.httpPost.getPost(+this.user_id,this.navParams.get("id"))
+    this.httpService.fetch(null,"GET","post.php?user_id="+this.user_id+"&post_id="+this.navParams.get("id"))
     .subscribe((res) => {
       console.log(res);
       this.json=res;

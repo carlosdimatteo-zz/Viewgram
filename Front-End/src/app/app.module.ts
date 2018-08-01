@@ -23,10 +23,6 @@ import { PostPage } from '../pages/post/post';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
 import { Camera } from '../../node_modules/@ionic-native/camera';
 import { FileTransfer } from '../../node_modules/@ionic-native/file-transfer';
-import { HttpAuthProvider } from '../providers/http-auth/http-auth';
-import { HttpPostsProvider } from '../providers/http-posts/http-posts';
-import { HttpUserProvider } from '../providers/http-user/http-user';
-import { HttpInteractionProvider } from '../providers/http-interaction/http-interaction';
 
 @NgModule({
   declarations: [
@@ -71,11 +67,7 @@ import { HttpInteractionProvider } from '../providers/http-interaction/http-inte
     HttpServicesProvider,
     CameraProvider,
     Camera,
-    FileTransfer,
-    HttpAuthProvider,
-    HttpPostsProvider,
-    HttpUserProvider,
-    HttpInteractionProvider
+    FileTransfer
 
   ]
 })

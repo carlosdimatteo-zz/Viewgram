@@ -1,7 +1,8 @@
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { HttpPostsProvider } from '../../providers/http-posts/http-posts';
+import { LoginPage } from '../login/login';
+import { HttpServicesProvider } from '../../providers/http-services/http-services';
 import { PostPage } from '../post/post';
 
 @Component({
@@ -15,14 +16,14 @@ export class HomePage {
     // status: string = '';
     posts = [];
     posts_arr = [];
-    svhost: string ="http://192.168.56.1:8080//viewgram//";
+    svhost: string ="http://192.168.1.121:8080//viewgram//";
     user_id:number;
     loaded: boolean = false;
   constructor(
     public navCtrl: NavController,
     private storage:Storage,
-    private http: HttpPostsProvider) {
-      this.svhost= "http://192.168.56.1:8080//viewgram//";
+    private httpServices: HttpServicesProvider) {
+      this.svhost= "http://192.168.1.121:8080//viewgram//";
       this.storage.get("user_id").then((data)=>{
         this.user_id=data;
         console.log("id from storage:"+this.user_id);
@@ -43,19 +44,14 @@ export class HomePage {
     this.storage.get("user_id").then((data)=>{
       this.user_id=data;
       console.log("id from storage:"+this.user_id);
-      this.http.home(this.user_id)
+      this.httpServices.fetch(null, 'GET', 'home.php?id='+this.user_id)
       .subscribe(res => {
-        if(res.data){
-          console.log("data from response in home: "+JSON.stringify(res.data));
-          res['data'].forEach(element => {
-            this.posts.push(element);
-            // this.getFiles()
-          });
-          console.log("this is the json array of posts: "+JSON.stringify(this.posts));
-        }else{
-          this.posts=[]
-        }
-        
+        console.log("data from response in home: "+JSON.stringify(res.data));
+        res['data'].forEach(element => {
+          this.posts.push(element);
+          // this.getFiles()
+        });
+        console.log("this is the json array of posts: "+JSON.stringify(this.posts));
       })
   });
        
@@ -63,7 +59,7 @@ export class HomePage {
   }
 
   // showPosts(){
-  //   this.http.userDashboard(`home.php?id=${this.user_id}`).subscribe(
+  //   this.httpServices.userDashboard(`home.php?id=${this.user_id}`).subscribe(
       
   //     (res)=> {
   //       console.log('es este'+JSON.stringify(this.user_id));
