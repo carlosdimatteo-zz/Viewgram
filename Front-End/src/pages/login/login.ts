@@ -1,11 +1,9 @@
-import { HttpServicesProvider } from './../../providers/http-services/http-services';
+import { HttpAuthProvider } from './../../providers/http-auth/http-auth';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,AlertController } from 'ionic-angular';
 import { FormBuilder , FormGroup , Validators } from '@angular/forms';
 import { SignupPage } from '../signup/signup';
 import {Storage} from '@ionic/storage'
-import { HomePage } from '../home/home';
-import { generateJson } from '../../helpers/generateJson';
 import { TabsPage } from '../tabs/tabs';
 @IonicPage()
 @Component({
@@ -21,7 +19,7 @@ export class LoginPage {
     public navCtrl: NavController,
      public navParams: NavParams, 
      public formBuilder: FormBuilder,
-     public httpService:HttpServicesProvider,
+     public httpService:HttpAuthProvider,
      private storage:Storage,
      public alertCtrl:AlertController) {
     this.json={username:"",password:""}
@@ -46,7 +44,7 @@ export class LoginPage {
     this.json=this.loginForm.value
     console.log("generated json: "+JSON.stringify(this.json))
     
-    this.httpService.fetch(this.json,"POST","login.php")
+    this.httpService.login(this.json)
     .subscribe((res) => {
       console.log(res);
       this.resJson=res;
