@@ -31,7 +31,7 @@ export class UploadPage {
   checkedLocation: boolean;
   lat: number = null;
   long: number = null;
-  svhost:'http://192.168.56.1:8080/viewgram';
+  svhost:'http://192.168.0.102:8080/viewgram';
   resJson:{user_id:number};
   home = HomePage;
   user_id:number;
@@ -44,7 +44,7 @@ export class UploadPage {
     private geolocation: Geolocation,
     private httpService : HttpUserProvider
   ) {
-    this.svhost= "http://192.168.56.1:8080/viewgram";
+    this.svhost= "http://192.168.0.102:8080/viewgram";
     this.storage.get("user_id").then((data)=>{
       this.user_id=data;
     console.log("id from storage:"+this.user_id);
@@ -83,21 +83,28 @@ submitForm() {
     if(this.checkedLocation) {
       this.getLocation()
         .then((pos: any) => {
-          this.httpService.getLocation(pos.latitude,pos.longitude).subscribe(({results:{formatted_address: location}})=>{
-            json['lat'] = pos.latitude;
-            json['long'] = pos.longitude;
-            json["location"]= location
-            // alert(this.checkedLocation);
-            // alert(JSON.stringify(json));
-            // json["user_id"]=this.user_id 
-            console.log("next upload.php?: "+JSON.stringify(json))
-                
-            this.mediaHandler.upload(json, true, 'upload.php');
-            console.log('Successful');
-            loader.dismiss();
-            loader.onDidDismiss(() => 
-            this.navCtrl.setRoot(this.home));
-            console.log('Perfect');
+          this.httpService.getLocation(pos.latitude,pos.longitude).subscribe((res)=>{
+            if(res.status=="OK"){
+                console.log("json from google maps API: "+JSON.stringify(res))
+              json['lat'] = pos.latitude;
+              json['long'] = pos.longitude;
+              json["location"]= res.results[0].formatted_address
+              // alert(this.checkedLocation);
+              // alert(JSON.stringify(json));
+              // json["user_id"]=this.user_id 
+              console.log("next upload.php?: "+JSON.stringify(json))
+                  
+              this.mediaHandler.upload(json, true, 'upload.php');
+              console.log('Successful');
+              loader.dismiss();
+              loader.onDidDismiss(() => 
+              this.navCtrl.setRoot(this.home));
+              console.log('Perfect');
+            }else{
+             alert("couldnt get location")
+             this.navCtrl.setRoot(UploadPage)
+            }
+           
           })
           
         })

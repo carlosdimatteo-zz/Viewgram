@@ -13,7 +13,7 @@ declare var cordova:any;
 export class CameraProvider {
  
   image: string = '';
-  svhost:'http://192.168.56.1:8080/viewgram';
+  svhost:'http://192.168.0.102:8080/viewgram';
   path:string=""
   updateForm;
 
@@ -25,7 +25,7 @@ export class CameraProvider {
     private loading: LoadingController
     ) {
     console.log('Hello CameraProvider Provider');
-      this.svhost= "http://192.168.56.1:8080/viewgram";
+      this.svhost= "http://192.168.0.102:8080/viewgram";
   }
 
   choose() {

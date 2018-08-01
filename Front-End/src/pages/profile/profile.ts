@@ -18,7 +18,7 @@ export class ProfilePage {
   liked_posts:any
   posts :any;
   Post : string;
-  svhost: string ='http://192.168.56.1:8080//viewgram//';
+  svhost: string ='http://192.168.0.102:8080//viewgram//';
 
 constructor(
   public navCtrl: NavController,
@@ -26,7 +26,7 @@ constructor(
   public httpService:HttpUserProvider,
   private storage: Storage,
   public app:App) {
-    this.svhost = "http://192.168.56.1:8080//viewgram//";
+    this.svhost = "http://192.168.0.102:8080//viewgram//";
   
 }
 

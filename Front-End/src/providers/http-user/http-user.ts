@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class HttpUserProvider {
     //   svhost: string = 'http://172.20.10.4:8080/viewgram/api';
-    svhost: string = 'http://192.168.56.1:8080/viewgram/api';
+    svhost: string = 'http://192.168.0.102:8080/viewgram/api';
     
   constructor(public http: HttpClient) {
     console.log('Hello HttpUserProvider Provider');
