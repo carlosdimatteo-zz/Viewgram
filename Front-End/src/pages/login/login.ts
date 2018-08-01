@@ -62,6 +62,14 @@ export class LoginPage {
            });
            alert.present();
          }})
+      }else{
+        let alert = this.alertCtrl.create({
+          title:"Login unsuccesfull",
+          subTitle:"Check your credentials",
+          buttons:["OK"]
+        });
+        alert.present();
+
       }
       console.log(this.resJson);
     });

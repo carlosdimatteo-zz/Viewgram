@@ -4,7 +4,7 @@
     function getQueries(){
     $queries = [
         "register"=>[
-            "registerquery"=>"INSERT INTO app_user (name,username,password,email,biography)  SELECT $1,$2,$3,$4,$5 from app_user WHERE NOT EXISTS (SELECT username from app_user WHERE username=$2) RETURNING username"
+            "registerquery"=>"INSERT INTO app_user (name,username,password,email,biography)  SELECT $1,$2,$3,$4,$5 app_user WHERE NOT EXISTS (SELECT username from app_user WHERE username=$2) RETURNING username"
         ],
         "login" => [
             "loginquery" => "SELECT * FROM app_user WHERE username = $1",

@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content padding>
-  <div *ngIf="posts">
+  <div *ngIf="posts[0]">
     <ion-card (click)="goToPost(p.post_id)"  *ngFor="let p of posts">
 
       <ion-row>

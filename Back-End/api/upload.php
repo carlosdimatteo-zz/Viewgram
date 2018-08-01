@@ -10,7 +10,7 @@
     // end of variables to work
     
 //    $mydata = array($data["userid"], $newpath, $data["caption"], date('Y-m-d'), $data["lat"], $data["long"], 0);
-        $mydata = array($data["userid"], $newpath, $data["caption"], date('Y-m-d'), $data["lat"], $data["long"],$data["location"], 0);
+        $mydata = array($data["userid"], $newpath, $data["caption"], date('Y-m-d H:i:s'), $data["lat"], $data["long"],$data["location"], 0);
 
     //echo json_encode($mydata);
 

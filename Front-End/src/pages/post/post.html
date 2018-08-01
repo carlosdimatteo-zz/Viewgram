@@ -22,11 +22,16 @@
       
         <ion-card-content>
           <p>{{json.data.post_caption}}</p>
-          <p *ngIf="json.data.tags">Tags:</p>
+          <div *ngIf="json.data.tags[0]">
+          <p >Tags:</p>
+          
           <span *ngFor="let tag of json.data.tags" >#{{tag.hashtag}}</span>
-          <p *ngIf="json.data.taggedUsers">Tagged Users:</p>
-          <div  *ngFor="let tag of json.data.taggedUsers" ><a (click)="goToProfile(tag.id_user)">@{{tag.username}}</a>,</div>
-        
+        </div>
+        <div *ngIf="json.data.taggedUsers[0]">
+            <p >Tagged Users:</p>
+          
+            <div  *ngFor="let tag of json.data.taggedUsers" ><a (click)="goToProfile(tag.id_user)">@{{tag.username}}</a>,</div>
+        </div>
         </ion-card-content>
         <ion-col right text-right>
             <ion-note>
@@ -62,13 +67,16 @@
         </ion-row>
       <ion-row >
         <ion-list *ngIf="commentBox">
-          <ion-item *ngFor=" let comment of json.data.comments">
+          <div *ngIf="json.data.comments[0]">
+          <ion-item *ngFor=" let comment of json.data.comments ">
                 <h2>{{comment.username}}</h2>
                 <p>{{comment.comment_text}}</p>
                 <button *ngIf="comment.id_user==user_id || json.data.id_user == user_id " ion-button icon-right clear small (click)="deleteComment(comment)"><ion-icon name="trash"></ion-icon></button>
           </ion-item>
+        </div>
           <form (ngSubmit)="comment()">
           <ion-item>
+           
             
               <ion-label>Comment</ion-label>
             <ion-textarea type="text" [(ngModel)]="commentJson.comment_text" name="comment_text"></ion-textarea>
