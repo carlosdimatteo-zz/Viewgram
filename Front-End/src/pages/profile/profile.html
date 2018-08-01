@@ -88,8 +88,8 @@
           </div>
           <div [ngSwitch]="Post">
             <ion-row *ngSwitchCase="'likedPosts'">
-            <ion-col *ngFor="let post of liked_posts">
-              <img (click)="goToPost(post.post_id)" src="{{post.post_filename}}">
+            <ion-col col-4 *ngFor="let post of liked_posts" style="height: 80px; overflow: hidden;">
+              <img (click)="goToPost(post.post_id)" src="{{svhost}}{{post.post_filename}}">
             </ion-col>
           </ion-row>
           <ion-row *ngSwitchCase="'userPostsList'">

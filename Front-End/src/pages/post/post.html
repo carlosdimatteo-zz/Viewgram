@@ -21,11 +21,12 @@
         <img src="http://192.168.0.102:8080//viewgram//{{json.data.post_filename}}">
       
         <ion-card-content>
+          <p *ngIf="json.data.likes" color="dark"><a (click)="goToList(json.data.id_user)">Likes</a></p>
           <p>{{json.data.post_caption}}</p>
-          <p *ngIf="json.data.tags">Tags:</p>
-          <p  *ngFor="let tag of json.data.tags" >#{{tag.hashtag}}</p>
+          <div *ngIf="json.data.tags">Tags:</div>
+          <div *ngFor="let tag of json.data.tags" >#{{tag.hashtag}}</div>
           <p *ngIf="json.data.taggedUsers">Tagged Users:</p>
-          <p  *ngFor="let tag of json.data.taggedUsers" ><a (click)="goToProfile(tag.id_user)">@{{tag.username}}</a>,</p>
+          <div  *ngFor="let tag of json.data.taggedUsers" ><a (click)="goToProfile(tag.id_user)">@{{tag.username}}</a>,</div>
         
         </ion-card-content>
         <ion-col right text-right>

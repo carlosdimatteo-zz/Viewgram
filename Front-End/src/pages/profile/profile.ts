@@ -5,6 +5,9 @@ import { HttpUserProvider } from '../../providers/http-user/http-user'
 import { Storage } from '@ionic/storage';
 import { EditProfilePage } from '../edit-profile/edit-profile';
 import { LoginPage } from '../login/login';
+import { ListsPage } from '../lists/lists';
+import { FollowersListPage } from '../followers-list/followers-list';
+import { FollowingListPage } from '../following-list/following-list';
 
 @IonicPage()
 @Component({
@@ -15,10 +18,11 @@ export class ProfilePage {
 
   json:Object;
   user_id:string;
+  followers: object;
   liked_posts:any
   posts :any;
   Post : string;
-  svhost: string ='http://192.168.0.102:8080//viewgram//';
+  svhost: string ='http://10.240.130.170:8080//viewgram//';
 
 constructor(
   public navCtrl: NavController,
@@ -26,7 +30,7 @@ constructor(
   public httpService:HttpUserProvider,
   private storage: Storage,
   public app:App) {
-    this.svhost = "http://192.168.0.102:8080//viewgram//";
+    this.svhost = "http://10.240.130.170:8080//viewgram//";
   
 }
 
@@ -34,7 +38,7 @@ ionViewDidLoad() {
   console.log('ionViewDidLoad ProfilePage');
   this.storage.get("user_id").then((data)=>{
     this.user_id=data;
-  console.log(this.user_id);});
+  console.log("data del usuario"+this.user_id);});
 }
 
 ionViewWillEnter(){
@@ -51,11 +55,14 @@ ionViewWillEnter(){
   followerPage(id){
         
         console.log("navigating id:"+id);
+        this.navCtrl.push(FollowersListPage,{json:this.json});
+
         
   }
 
   followingPage(id){
     console.log("navigating id:"+id);
+    this.navCtrl.push(FollowingListPage,{json:this.json});
   }
 
   goToEditProfile(){
