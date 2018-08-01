@@ -18,10 +18,15 @@
           <p>{{json.data.location}}</p>
         </ion-item>
       
-        <img src="http://192.168.1.121:8080//viewgram//{{json.data.post_filename}}">
+        <img src="http://192.168.56.1:8080//viewgram//{{json.data.post_filename}}">
       
         <ion-card-content>
           <p>{{json.data.post_caption}}</p>
+          <p *ngIf="json.data.tags">Tags:</p>
+          <p  *ngFor="let tag of json.data.tags" >#{{tag.hashtag}}</p>
+          <p *ngIf="json.data.taggedUsers">Tagged Users:</p>
+          <p  *ngFor="let tag of json.data.taggedUsers" ><a (click)="goToProfile(tag.id_user)">@{{tag.username}}</a>,</p>
+        
         </ion-card-content>
         <ion-col right text-right>
             <ion-note>
@@ -60,6 +65,7 @@
           <ion-item *ngFor=" let comment of json.data.comments">
                 <h2>{{comment.username}}</h2>
                 <p>{{comment.comment_text}}</p>
+                <button *ngIf="comment.id_user==user_id || json.data.id_user == user_id " ion-button icon-right clear small (click)="deleteComment(comment)"><ion-icon name="trash"></ion-icon></button>
           </ion-item>
           <form (ngSubmit)="comment()">
           <ion-item>
