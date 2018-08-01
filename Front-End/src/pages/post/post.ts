@@ -6,6 +6,7 @@ import { UserProfilePage } from '../user-profile/user-profile';
 import { HomePage } from '../home/home';
 import { HttpInteractionProvider } from '../../providers/http-interaction/http-interaction';
 import { HttpPostsProvider } from '../../providers/http-posts/http-posts';
+import { ListsPage } from '../lists/lists';
 /**
  * Generated class for the PostPage page.
  *
@@ -31,7 +32,7 @@ export class PostPage {
     console.log('ionViewDidLoad PostPage');
     this.storage.get("user_id").then((data)=>{
       this.user_id=data;
-    console.log(this.user_id);
+    console.log(JSON.stringify(this.user_id));
     this.fetchPost();});
     
     
@@ -45,7 +46,7 @@ export class PostPage {
     .subscribe((res) => {
       console.log(res);
       let resjson=res
-      console.log(resjson);
+      console.log(JSON.stringify(resjson));
       if(resjson.data>5){
         this.navCtrl.setRoot(HomePage);
       }
@@ -63,18 +64,21 @@ export class PostPage {
       console.log(this.commentBox);
   }
 
-
+  goToList(id){
+    console.log("alertttttttttttt"+JSON.stringify(this.json));
+    this.navCtrl.push(ListsPage,{json:this.json})
+  }
     comment(){
       console.log("comment attempt");
       this.commentJson.id_user=this.user_id;
       this.commentJson.post_id=this.json.data.post_id;
       this.commentJson.created_at= new Date().toUTCString();
-      console.log(this.commentJson);
+      console.log(JSON.stringify(this.commentJson));
       this.httpInt.comment(this.user_id,this.navParams.get("id"),this.commentJson)
       .subscribe((res) => {
-        console.log(res);
+        console.log(JSON.stringify(res));
         let resjson=res;
-        console.log(resjson);
+        console.log(JSON.stringify(resjson));
         this.commentJson={}
         this.commentBox=!this.commentBox
         this.fetchPost();
@@ -83,7 +87,7 @@ export class PostPage {
 
     deleteComment(comment){
       this.httpInt.deleteComment(comment).subscribe((res)=>{
-        console.log(res)
+        console.log(JSON.stringify(res))
         this.fetchPost();
       })
     }
@@ -91,9 +95,9 @@ export class PostPage {
     like(){
       this.httpInt.like(+this.user_id,this.navParams.get("id"))
     .subscribe((res) => {
-      console.log(res);
+      console.log(JSON.stringify(res));
      let resjson=res
-      console.log(resjson);
+      console.log(JSON.stringify(resjson));
       this.fetchPost();
     });
     }
@@ -101,9 +105,9 @@ export class PostPage {
     dislike(){
       this.httpInt.dislike(this.user_id,this.navParams.get("id"))
     .subscribe((res) => {
-      console.log(res);
+      console.log(JSON.stringify(res));
       let resjson=res;
-      console.log(resjson);
+      console.log(JSON.stringify(resjson));
       this.fetchPost();
     });
     }
@@ -112,10 +116,11 @@ export class PostPage {
   fetchPost(){
     this.httpPost.getPost(+this.user_id,this.navParams.get("id"))
     .subscribe((res) => {
-      console.log(res);
+      console.log(JSON.stringify(res));
       this.json=res;
-      console.log(this.json);
+      console.log(JSON.stringify(this.json));
     })
+
 
     
   }

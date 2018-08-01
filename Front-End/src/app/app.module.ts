@@ -27,6 +27,9 @@ import { HttpAuthProvider } from '../providers/http-auth/http-auth';
 import { HttpPostsProvider } from '../providers/http-posts/http-posts';
 import { HttpUserProvider } from '../providers/http-user/http-user';
 import { HttpInteractionProvider } from '../providers/http-interaction/http-interaction';
+import { ListsPage } from '../pages/lists/lists';
+import { FollowersListPage } from '../pages/followers-list/followers-list';
+import { FollowingListPage } from '../pages/following-list/following-list';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,10 @@ import { HttpInteractionProvider } from '../providers/http-interaction/http-inte
     ProfilePage,
     EditProfilePage,
     PostPage,
-    UserProfilePage
+    UserProfilePage,
+    ListsPage,
+    FollowersListPage,
+    FollowingListPage
   ],
   imports: [
     BrowserModule,
@@ -62,7 +68,10 @@ import { HttpInteractionProvider } from '../providers/http-interaction/http-inte
     ProfilePage,
     EditProfilePage,
     PostPage,
-    UserProfilePage
+    UserProfilePage,
+    ListsPage,
+    FollowersListPage,
+    FollowingListPage
   ],
   providers: [
     StatusBar,
