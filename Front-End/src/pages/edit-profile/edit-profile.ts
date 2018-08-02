@@ -43,7 +43,7 @@ export class EditProfilePage {
       this.json=this.navParams.get('json');
       this.id=this.json.id_user;
     console.log("json del usuario: "+JSON.stringify(this.json));
-    this.svhost = "http://192.168.43.183:8080//viewgram//files//";
+    this.svhost = "http://192.168.1.102:8080//viewgram//files//";
   }
 
   ionViewDidLoad() {

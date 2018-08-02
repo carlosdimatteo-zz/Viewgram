@@ -10,7 +10,11 @@
             "loginquery" => "SELECT * FROM app_user WHERE username = $1",
         ],
         "homepage" => [
-            "followerspost" => "SELECT DISTINCT c.username,a.* FROM ((post_1 a INNER JOIN followers_list b ON a.id_user = b.followed_id_user )INNER JOIN app_user c ON a.id_user = c.id_user ) WHERE b.follower_id_user = $1 or a.id_user = $1 ORDER BY a.created_at DESC",
+            "followerspost" => "SELECT DISTINCT c.username,a.* FROM 
+            post_1 a 
+            INNER JOIN app_user c ON a.id_user = c.id_user
+            LEFT JOIN followers_list b ON b.followed_id_user = a.id_user 
+            WHERE  a.id_user = $1  or b.follower_id_user = $1 ORDER BY a.created_at DESC",
             // "followerspost" =>"SELECT * FROM post_1 where $1",
             "selecteduser" => "SELECT * FROM app_user WHERE id_user = $1"
         ],

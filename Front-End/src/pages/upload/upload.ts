@@ -31,7 +31,7 @@ export class UploadPage {
   checkedLocation: boolean;
   lat: number = null;
   long: number = null;
-  svhost:'http://192.168.43.183:8080/viewgram';
+  svhost:'http://192.168.1.102:8080/viewgram';
   resJson:{user_id:number};
   home = HomePage;
   user_id:number;
@@ -44,7 +44,7 @@ export class UploadPage {
     private geolocation: Geolocation,
     private httpService : HttpUserProvider
   ) {
-    this.svhost= "http://192.168.43.183:8080/viewgram";
+    this.svhost= "http://192.168.1.102:8080/viewgram";
     this.storage.get("user_id").then((data)=>{
       this.user_id=data;
     console.log("id from storage:"+this.user_id);
