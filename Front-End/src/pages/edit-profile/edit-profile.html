@@ -8,7 +8,7 @@
 <ion-content padding>
     <div align="center" *ngIf="json">
         <ion-avatar>
-            <img src="{{svhost}}" style="width: 50%;">
+            <img src="{{svhost}}{{json.path}}" style="width: 50%;">
         </ion-avatar>
       <br/>
       <button ion-button clear color="dark" (click)="changePhoto()">Change Profile Photo</button>
