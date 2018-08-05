@@ -1,0 +1,18 @@
+page-signup {
+    ion-content{
+        background-image: url('../assets/imgs/signupb2.jpg');
+        background-size: cover;
+        
+       .form ion-item{
+        border-color: rgba(0, 0, 0, 0);
+        background-color: rgba(0, 0, 0, 0);
+        color: #014631; 
+        font-size: 20px;
+       }
+    }
+    .imglogo{
+        margin-top: 30px;
+
+    }
+
+}

@@ -1,0 +1,55 @@
+<ion-header>
+<ion-navbar>
+    <ion-title>Edit Profile</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <div align="center" *ngIf="json">
+        <ion-avatar>
+            <img src="{{svhost}}{{json.path}}" style="width: 50%;">
+        </ion-avatar>
+      <br/>
+      <button ion-button clear color="dark" (click)="changePhoto()">Change Profile Photo</button>
+    </div>
+
+    <form *ngIf="json" [formGroup]="updateForm" (ngSubmit)="editUser()" class="form">
+        <img src="" alt="" class="imglogo">
+      <ion-list>
+          <ion-item>
+              <ion-icon name="person" item-left></ion-icon>
+              <ion-label stacked>Name:</ion-label>
+              <ion-input  type="text"  placeholder="Name" [(ngModel)]="json.name"  formControlName="name"></ion-input>
+            </ion-item>
+              <ion-item>
+                  <ion-icon name="mail" item-left></ion-icon>
+                  <ion-label stacked>Email:</ion-label>
+                  <ion-input  type="text"  placeholder="Email" [(ngModel)]="json.email"  formControlName="email"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-icon name="biography" item-left></ion-icon>
+                    <ion-label stacked>Biography:</ion-label>
+                    <ion-input  type="text"  placeholder="Biography" [(ngModel)]="json.biography"  formControlName="biography"></ion-input>
+                  </ion-item>
+        
+        <ion-item>
+          <ion-icon name="person" item-left></ion-icon>
+          <ion-label stacked>Username:</ion-label>
+          <ion-input  type="text"  placeholder="Username"  [(ngModel)]="json.username"  name="username" formControlName="username" ></ion-input>
+        </ion-item>
+  
+        <!-- <ion-item>
+          <ion-icon name="key" item-left></ion-icon>
+          <ion-label stacked>Password:</ion-label>
+          <ion-input  type="password"  placeholder="Password"  [(ngModel)]="json.password"  name="password" formControlName="password" ></ion-input>
+        </ion-item> -->
+        <div padding>
+          <button ion-button block type="submit" [disabled]= "!updateForm.valid"  color="dark">Save Changes</button>
+          <!-- deleted formgroup actions and bindings until helper function is created -->
+        </div>
+  
+      </ion-list>
+    </form>
+
+</ion-content>

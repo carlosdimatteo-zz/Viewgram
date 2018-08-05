@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>
+      <img src="../assets/imgs/viewgramlogo.png" alt="" style="width: 150px">
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="posts[0]">
+    <ion-card (click)="goToPost(p.post_id)"  *ngFor="let p of posts">
+
+      <ion-row>
+
+        <ion-avatar style="width: 50px; margin:10px;">
+          <img src="" alt="">
+        </ion-avatar>
+
+        <ion-card-title style="font-weight: bold; font-size: 15px; margin:10px;">
+          {{p.username}}
+        </ion-card-title>
+
+      </ion-row>
+
+      <img src="{{svhost}}{{p.post_filename}}" />
+
+      <ion-card-content>
+        <p>
+          {{p.post_caption}}
+        </p>
+      </ion-card-content>
+      
+    </ion-card>
+
+
+  </div>
+  <div *ngIf="!posts[0]">
+    <p>There are no posts to show , Use the Search Tab To Find users To Follow!</p>
+  </div>
+</ion-content>
